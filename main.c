@@ -35,8 +35,8 @@ int main(int argc, char *argv[])
 	exit(-1);
     }
 
-    generator.noSamples = atoi(argv[2]);
-    generator.windowSize = atoi(argv[3]);
+    generator.noSamples = atoi(argv[3]);
+    generator.windowSize = atoi(argv[4]);
 
     if (!strcmp(argv[1],"s"))
     {
@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
         array = square_array(&generator);
     }
 
-    if (!strcmp(argv[1],"a"))
+    if (!strcmp(argv[2],"a"))
     {
 	printf("----------------\n");
 	printf("Calc average\n");
