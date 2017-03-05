@@ -8,7 +8,8 @@ typedef struct {
     float minNoise;     // min noise level
     float maxNoise;     // max noise level
     float scaleFactor;  // scale factor of noise level
-    int   dutyCycle;    // duty cycle square wave in %
+    int   ratio;        // square wave ration in %
+    int   windowSize;   // window size for average calculation
 }Generator;
 
 float* sinus_array(Generator *gen);

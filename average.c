@@ -12,9 +12,6 @@
 #include <stdbool.h>
 #include "generator.h"
 
-#define WINDOW_SIZE 10
-
- 
 void calculateAverage(float* a, Generator *gen)
 {
         FILE *fp;
@@ -25,13 +22,13 @@ void calculateAverage(float* a, Generator *gen)
 	{
 	    sum = 0.0;
 
-            for(int i=startPoint; i<startPoint+WINDOW_SIZE; i++)
+            for(int i=startPoint; i<startPoint+gen->windowSize; i++)
             {
                 sum = sum + a[i];
 	        //printf("start:%d, i:%d, a:%.4f, sum:%.4f\n", startPoint, i, a[i], sum);
 		//fprintf(fp, "startPoint:%d, i:%d, a:%.4f, sum: %.4f\n", startPoint, i, a[i], sum);
             }
-            fprintf(fp, "%.2f\n", sum / WINDOW_SIZE);
+            fprintf(fp, "%.2f\n", sum / gen->windowSize);
 	}
 
 	fclose(fp);

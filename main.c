@@ -25,6 +25,7 @@ int main(int argc, char *argv[])
 			   0.2,    // max noise level
 			   12.0,   // scale factor of noise level
 			   20,     // square wave ratio
+			   10,     // window size
 			  };
 
     //array = sinus_array(&generator);

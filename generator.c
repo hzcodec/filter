@@ -74,7 +74,9 @@ float* sinus_array(Generator *gen)
                 ar[i] = rad;
         }
         
+	printf("----------------\n");
 	printf("Sinus generated\n");
+	printf("----------------\n");
 	fclose(fp);
 
         return ar;
@@ -89,7 +91,7 @@ float* square_array(Generator *gen)
 
         fp = fopen("square_samples.txt", "w");
         float *ar = (float *)malloc(sizeof(float) * (float)gen->noSamples);    
-	float dist = (float)gen->dutyCycle/100.0 * (float)gen->noSamples;
+	float dist = (float)gen->ratio/100.0 * (float)gen->noSamples;
 	float start = (float)gen->noSamples/2.0 - dist/2.0;
 	float stop = (float)gen->noSamples/2.0 + dist/2.0;
 
@@ -116,6 +118,8 @@ float* square_array(Generator *gen)
                 fprintf(fp, "%.4f\n", out + noise);
 	}
 
+	printf("----------------\n");
 	printf("Square generated\n");
+	printf("----------------\n");
         return ar;
 }
