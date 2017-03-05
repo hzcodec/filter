@@ -41,7 +41,8 @@ int main(int argc, char *argv[])
     array = sinus_array(&generator);
     //array = square_array(&generator);
 
-    calculateAverage(array, &generator);
+    //calculateAverage(array, &generator);
+    filter(array);
 
     free(array);
  

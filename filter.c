@@ -15,7 +15,6 @@ static float new = 0.0;
 static float last = 0.0;
 
 void filter(float *ar)
-//float filter(float new)
 {
         FILE *fp;
         fp = fopen("filter.txt", "w");
@@ -25,9 +24,10 @@ void filter(float *ar)
                 new = ar[n];
                 new = last + 0.1*(new - last);
 
-                //printf("new:%.2f - last:%.2f\n", new, last);
                 fprintf(fp, "%.4f\n", new);
                 last = new;
         }
+
+	fclose(fp);
 }
 

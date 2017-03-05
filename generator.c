@@ -14,7 +14,6 @@
 static bool swap = false;
 static float noise = 0.0;
 
-
 float rand_interval(float min, float max)
 {
     int r;
@@ -30,7 +29,6 @@ float rand_interval(float min, float max)
     return min + (r / buckets);
 }
 
-
 // generate noise
 float gen_noise(Generator *gen)
 {
@@ -44,6 +42,18 @@ float gen_noise(Generator *gen)
 	return noise;
 }
 
+void print_header(FILE *fp, Generator *gen)
+{
+        fprintf(fp, "noSamples: %d\n", gen->noSamples); 
+        fprintf(fp, "amplitude: %.2f\n", gen->amplitude);
+        fprintf(fp, "enableNoise: %d\n", gen->enableNoise);
+        fprintf(fp, "minNoise: %.2f\n", gen->minNoise); 
+        fprintf(fp, "maxNoise: %.2f\n", gen->maxNoise);
+        fprintf(fp, "scaleFactor: %.2f\n", gen->scaleFactor);
+        fprintf(fp, "ratio: %d\n", gen->ratio);
+        fprintf(fp, "windowSize: %d\n", gen->windowSize);
+}
+
 float* sinus_array(Generator *gen)
 {
         FILE *fp;
@@ -55,16 +65,8 @@ float* sinus_array(Generator *gen)
         float rad = 0.0;
         float *ar = (float *)malloc(sizeof(float) * gen->noSamples);    
 
-        fprintf(fp, "noSamples: %d\n", gen->noSamples); 
-        fprintf(fp, "amplitude: %.2f\n", gen->amplitude);
-        fprintf(fp, "enableNoise: %d\n", gen->enableNoise);
-        fprintf(fp, "minNoise: %.2f\n", gen->minNoise); 
-        fprintf(fp, "maxNoise: %.2f\n", gen->maxNoise);
-        fprintf(fp, "scaleFactor: %.2f\n", gen->scaleFactor);
-        fprintf(fp, "ratio: %d\n", gen->ratio);
-        fprintf(fp, "windowSize: %d\n", gen->windowSize);
+	print_header(fp, gen);
 
-        
         for (int i=0; i<gen->noSamples; i++)
         {
 	        if (gen->enableNoise == true)
@@ -93,7 +95,6 @@ float* sinus_array(Generator *gen)
         return ar;
 }
 
-
 float* square_array(Generator *gen)
 {
         FILE *fp;
@@ -106,14 +107,7 @@ float* square_array(Generator *gen)
 	float start = (float)gen->noSamples/2.0 - dist/2.0;
 	float stop = (float)gen->noSamples/2.0 + dist/2.0;
 
-        fprintf(fp, "noSamples: %d\n", gen->noSamples); 
-        fprintf(fp, "amplitude: %.2f\n", gen->amplitude);
-        fprintf(fp, "enableNoise: %d\n", gen->enableNoise);
-        fprintf(fp, "minNoise: %.2f\n", gen->minNoise); 
-        fprintf(fp, "maxNoise: %.2f\n", gen->maxNoise);
-        fprintf(fp, "scaleFactor: %.2f\n", gen->scaleFactor);
-        fprintf(fp, "ratio: %d\n", gen->ratio);
-        fprintf(fp, "windowSize: %d\n", gen->windowSize);
+	print_header(fp, gen);
 
 	for (int i=0; i<((int)start); i++)
 	{
