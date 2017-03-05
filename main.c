@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdbool.h>
+#include <string.h>
 #include "generator.h"
 #include "average.h"
 #include "filter.h"
@@ -30,18 +31,30 @@ int main(int argc, char *argv[])
 			  };
 
     if (argc < 2) {
-        printf("Usage: <number of samples> <window size>\n");
+        printf("Usage: <s | q> <a | f> <number of samples> <window size>\n");
 	exit(-1);
     }
 
-    generator.noSamples = atoi(argv[1]);
-    generator.windowSize = atoi(argv[2]);
+    generator.noSamples = atoi(argv[2]);
+    generator.windowSize = atoi(argv[3]);
 
-    array = sinus_array(&generator);
-    //array = square_array(&generator);
+    if (!strcmp(argv[1],"s"))
+    {
+        array = sinus_array(&generator);
+    }
+    else
+    {
+        array = square_array(&generator);
+    }
 
-    //calculateAverage(array, &generator);
-    filter(array, &generator);
+    if (!strcmp(argv[1],"a"))
+    {
+        calculateAverage(array, &generator);
+    }
+    else
+    {
+        filter(array, &generator);
+    }
 
     free(array);
  
