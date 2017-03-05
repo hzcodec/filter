@@ -75,6 +75,8 @@ float* sinus_array(Generator *gen)
         }
         
 	printf("Sinus generated\n");
+	fclose(fp);
+
         return ar;
 }
 

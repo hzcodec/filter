@@ -24,13 +24,13 @@ int main(int argc, char *argv[])
 			   0.1,    // min noise level
 			   0.2,    // max noise level
 			   12.0,   // scale factor of noise level
-			   20,     // duty cycle for square wave
+			   20,     // square wave ratio
 			  };
 
-    array = sinus_array(&generator);
-    //array = square_array(&generator);
+    //array = sinus_array(&generator);
+    array = square_array(&generator);
 
-    calculateAverage(array);
+    calculateAverage(array, &generator);
 
     free(array);
  
