@@ -33,8 +33,7 @@ int main(int argc, char *argv[])
         printf("Usage: <number of samples> <window size>\n");
 	exit(-1);
     }
-    printf("arg:%d\n", atoi(argv[1]));
-    printf("arg:%d\n", atoi(argv[2]));
+
     generator.noSamples = atoi(argv[1]);
     generator.windowSize = atoi(argv[2]);
 
@@ -42,7 +41,7 @@ int main(int argc, char *argv[])
     //array = square_array(&generator);
 
     //calculateAverage(array, &generator);
-    filter(array);
+    filter(array, &generator);
 
     free(array);
  
