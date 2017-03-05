@@ -121,5 +121,16 @@ float* square_array(Generator *gen)
 	printf("----------------\n");
 	printf("Square generated\n");
 	printf("----------------\n");
+
+        fprintf(fp, "noSamples: %d\n", gen->noSamples); 
+        fprintf(fp, "amplitude: %.2f\n", gen->amplitude);
+        fprintf(fp, "enableNoise: %d\n", gen->enableNoise);
+        fprintf(fp, "minNoise: %.2f\n", gen->minNoise); 
+        fprintf(fp, "maxNoise: %.2f\n", gen->maxNoise);
+        fprintf(fp, "scaleFactor: %.2f\n", gen->scaleFactor);
+        fprintf(fp, "ratio: %d\n", gen->ratio);
+        fprintf(fp, "windowSize: %d\n", gen->windowSize);
+
+	fclose(fp);
         return ar;
 }

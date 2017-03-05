@@ -22,8 +22,8 @@ int main(int argc, char *argv[])
                            1.0,    // amplitude scale factor
 			   true,  // enable noise
 			   0.1,    // min noise level
-			   0.2,    // max noise level
-			   12.0,   // scale factor of noise level
+			   0.3,    // max noise level
+			   10.0,   // scale factor of noise level
 			   20,     // square wave ratio
 			   10,     // window size
 			  };
