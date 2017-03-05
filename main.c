@@ -25,8 +25,18 @@ int main(int argc, char *argv[])
 			   0.3,    // max noise level
 			   10.0,   // scale factor of noise level
 			   20,     // square wave ratio
-			   10,     // window size
+			   30,     // window size
 			  };
+
+    if (argc < 2) {
+        printf("Usage: <number of samples> <window size>\n");
+	exit(-1);
+    }
+    printf("arg:%d\n", atoi(argv[1]));
+    printf("arg:%d\n", atoi(argv[2]));
+    generator.noSamples = atoi(argv[1]);
+    generator.windowSize = atoi(argv[2]);
+
 
     //array = sinus_array(&generator);
     array = square_array(&generator);
