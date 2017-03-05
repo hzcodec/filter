@@ -85,10 +85,6 @@ float* sinus_array(Generator *gen)
                 fprintf(fp, "%.4f\n", rad);
                 ar[i] = rad;
         }
-        
-	printf("----------------\n");
-	printf("Sinus generated\n");
-	printf("----------------\n");
 
 	fclose(fp);
 
@@ -131,10 +127,6 @@ float* square_array(Generator *gen)
                 ar[i] = out + noise;
                 fprintf(fp, "%.4f\n", out + noise);
 	}
-
-	printf("----------------\n");
-	printf("Square generated\n");
-	printf("----------------\n");
 
 	fclose(fp);
         return ar;

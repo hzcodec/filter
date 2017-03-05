@@ -40,19 +40,31 @@ int main(int argc, char *argv[])
 
     if (!strcmp(argv[1],"s"))
     {
+	printf("----------------\n");
+	printf("Sinus generated\n");
+	printf("----------------\n");
         array = sinus_array(&generator);
     }
     else
     {
+	printf("----------------\n");
+	printf("Square generated\n");
+	printf("----------------\n");
         array = square_array(&generator);
     }
 
     if (!strcmp(argv[1],"a"))
     {
+	printf("----------------\n");
+	printf("Calc average\n");
+	printf("----------------\n");
         calculateAverage(array, &generator);
     }
     else
     {
+	printf("----------------\n");
+	printf("Perform filtering\n");
+	printf("----------------\n");
         filter(array, &generator);
     }
 
