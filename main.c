@@ -11,6 +11,7 @@
 #include <math.h>
 #include <stdbool.h>
 #include "generator.h"
+#include "average.h"
  
 int main(int argc, char *argv[])
 {
@@ -23,11 +24,14 @@ int main(int argc, char *argv[])
 			   0.1,    // min noise level
 			   0.2,    // max noise level
 			   12.0,   // scale factor of noise level
-			   80,     // duty cycle for square wave
+			   20,     // duty cycle for square wave
 			  };
 
     array = sinus_array(&generator);
-    array = square_array(&generator);
+    //array = square_array(&generator);
+
+    calculateAverage(array);
+
     free(array);
  
     return 0;

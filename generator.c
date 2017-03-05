@@ -74,6 +74,7 @@ float* sinus_array(Generator *gen)
                 ar[i] = rad;
         }
         
+	printf("Sinus generated\n");
         return ar;
 }
 
@@ -86,30 +87,33 @@ float* square_array(Generator *gen)
 
         fp = fopen("square_samples.txt", "w");
         float *ar = (float *)malloc(sizeof(float) * (float)gen->noSamples);    
-	float stop = (float)gen->dutyCycle/100.0 * (float)gen->noSamples;
+	float dist = (float)gen->dutyCycle/100.0 * (float)gen->noSamples;
+	float start = (float)gen->noSamples/2.0 - dist/2.0;
+	float stop = (float)gen->noSamples/2.0 + dist/2.0;
 
-        for (int i=0; i<(int)stop; i++)
-        {
-               if (gen->enableNoise == true)
-               {
-                       noise = gen_noise(gen);
-               }
+	for (int i=0; i<((int)start); i++)
+	{
+                noise = gen_noise(gen);
+                ar[i] = out + noise;
+                fprintf(fp, "%.4f\n", out + noise);
+	}
 
-               ar[i] = out + noise;
-               fprintf(fp, "%.4f\n", out + noise);
-        }
+	out = 1.0;
+	for (int i=start+1; i<((int)stop); i++)
+	{
+                noise = gen_noise(gen);
+                ar[i] = out + noise;
+                fprintf(fp, "%.4f\n", out + noise);
+	}
 
-        out = 1.0;
-        for (int i=(int)stop+1; i<256; i++)
-        {
-               if (gen->enableNoise == true)
-               {
-                       noise = gen_noise(gen);
-               }
+	out = 0.0;
+	for (int i=stop+1; i<((int)gen->noSamples); i++)
+	{
+                noise = gen_noise(gen);
+                ar[i] = out + noise;
+                fprintf(fp, "%.4f\n", out + noise);
+	}
 
-               ar[i] = out + noise;
-               fprintf(fp, "%.4f\n", out + noise);
-        }
-
+	printf("Square generated\n");
         return ar;
 }
