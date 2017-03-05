@@ -37,9 +37,8 @@ int main(int argc, char *argv[])
     generator.noSamples = atoi(argv[1]);
     generator.windowSize = atoi(argv[2]);
 
-
-    //array = sinus_array(&generator);
-    array = square_array(&generator);
+    array = sinus_array(&generator);
+    //array = square_array(&generator);
 
     calculateAverage(array, &generator);
 

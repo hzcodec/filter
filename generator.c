@@ -54,6 +54,16 @@ float* sinus_array(Generator *gen)
         float deg = 0.0;
         float rad = 0.0;
         float *ar = (float *)malloc(sizeof(float) * gen->noSamples);    
+
+        fprintf(fp, "noSamples: %d\n", gen->noSamples); 
+        fprintf(fp, "amplitude: %.2f\n", gen->amplitude);
+        fprintf(fp, "enableNoise: %d\n", gen->enableNoise);
+        fprintf(fp, "minNoise: %.2f\n", gen->minNoise); 
+        fprintf(fp, "maxNoise: %.2f\n", gen->maxNoise);
+        fprintf(fp, "scaleFactor: %.2f\n", gen->scaleFactor);
+        fprintf(fp, "ratio: %d\n", gen->ratio);
+        fprintf(fp, "windowSize: %d\n", gen->windowSize);
+
         
         for (int i=0; i<gen->noSamples; i++)
         {
@@ -78,15 +88,6 @@ float* sinus_array(Generator *gen)
 	printf("Sinus generated\n");
 	printf("----------------\n");
 
-        fprintf(fp, "noSamples: %d\n", gen->noSamples); 
-        fprintf(fp, "amplitude: %.2f\n", gen->amplitude);
-        fprintf(fp, "enableNoise: %d\n", gen->enableNoise);
-        fprintf(fp, "minNoise: %.2f\n", gen->minNoise); 
-        fprintf(fp, "maxNoise: %.2f\n", gen->maxNoise);
-        fprintf(fp, "scaleFactor: %.2f\n", gen->scaleFactor);
-        fprintf(fp, "ratio: %d\n", gen->ratio);
-        fprintf(fp, "windowSize: %d\n", gen->windowSize);
-
 	fclose(fp);
 
         return ar;
@@ -104,6 +105,15 @@ float* square_array(Generator *gen)
 	float dist = (float)gen->ratio/100.0 * (float)gen->noSamples;
 	float start = (float)gen->noSamples/2.0 - dist/2.0;
 	float stop = (float)gen->noSamples/2.0 + dist/2.0;
+
+        fprintf(fp, "noSamples: %d\n", gen->noSamples); 
+        fprintf(fp, "amplitude: %.2f\n", gen->amplitude);
+        fprintf(fp, "enableNoise: %d\n", gen->enableNoise);
+        fprintf(fp, "minNoise: %.2f\n", gen->minNoise); 
+        fprintf(fp, "maxNoise: %.2f\n", gen->maxNoise);
+        fprintf(fp, "scaleFactor: %.2f\n", gen->scaleFactor);
+        fprintf(fp, "ratio: %d\n", gen->ratio);
+        fprintf(fp, "windowSize: %d\n", gen->windowSize);
 
 	for (int i=0; i<((int)start); i++)
 	{
@@ -131,15 +141,6 @@ float* square_array(Generator *gen)
 	printf("----------------\n");
 	printf("Square generated\n");
 	printf("----------------\n");
-
-        fprintf(fp, "noSamples: %d\n", gen->noSamples); 
-        fprintf(fp, "amplitude: %.2f\n", gen->amplitude);
-        fprintf(fp, "enableNoise: %d\n", gen->enableNoise);
-        fprintf(fp, "minNoise: %.2f\n", gen->minNoise); 
-        fprintf(fp, "maxNoise: %.2f\n", gen->maxNoise);
-        fprintf(fp, "scaleFactor: %.2f\n", gen->scaleFactor);
-        fprintf(fp, "ratio: %d\n", gen->ratio);
-        fprintf(fp, "windowSize: %d\n", gen->windowSize);
 
 	fclose(fp);
         return ar;
