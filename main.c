@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 			   30,     // window size
 			  };
 
-    if (argc < 2) {
+    if (argc < 4) {
         printf("Usage: <s | q> <a | f> <number of samples> <window size>\n");
 	exit(-1);
     }
