@@ -12,6 +12,7 @@
 #include <stdbool.h>
 #include "generator.h"
 #include "average.h"
+#include "filter.h"
  
 int main(int argc, char *argv[])
 {
