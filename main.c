@@ -11,9 +11,29 @@
 #include <math.h>
 #include <stdbool.h>
 #include <string.h>
+#include <getopt.h>
+//#include <unistd.h>
 #include "generator.h"
 #include "average.h"
 #include "filter.h"
+
+void print_usage()
+{
+    printf("Usage: rectangle [ap] -l num -b num\n");
+}
+
+void print_configuration(Generator *g)
+{
+    printf("Number of samples: %d\n", g->noSamples);
+    printf("Amplitude: %.2f\n", g->amplitude);
+    printf("Enable noise: %d\n", g->enableNoise);
+    printf("Min noise: %.2f\n", g->minNoise);
+    printf("Max noise: %.2f\n", g->maxNoise);
+    printf("Scale factor: %.2f\n", g->scaleFactor);
+    printf("Ratio: %d\n", g->ratio);
+    printf("Window size: %d\n", g->windowSize);
+}
+
  
 int main(int argc, char *argv[])
 {
@@ -31,51 +51,85 @@ int main(int argc, char *argv[])
 			   30,     // window size
 			  };
 
-    if (argc < 4) {
-        printf("Usage: <s | q | r> <a | f> <number of samples> <window size> <min noise> <max noise>\n");
-	exit(-1);
+    int option = 0;
+    int select = 1; // select sinus/square/ramp, default sinus
+    int filt = 0;   // select average calc or filtering
+
+    // s => generate sinus
+    // q => generate square
+    // r => generate ramp
+    // n - number of samples
+    // a - amplitude
+    // g - minimum noise level
+    // h - maximum noise level
+    // w - window size
+    // v - calculate average
+    // f - perform filtering
+    while ((option = getopt(argc, argv,"sqrn:a:e:g:h:w:v:f:")) != -1) {
+        switch (option) {
+             case 's' : select = 1;
+                        break;
+             case 'q' : select = 2;
+                        break;
+             case 'r' : select = 3;
+                        break;
+             case 'n' : generator.noSamples = atoi(optarg);
+                        break;
+             case 'a' : generator.amplitude = atof(optarg);
+                        break;
+             case 'e' : generator.enableNoise = atoi(optarg); 
+                        break;
+             case 'g' : generator.minNoise = atof(optarg); 
+                        break;
+             case 'h' : generator.maxNoise = atof(optarg); 
+                        break;
+             case 'w' : generator.windowSize = atoi(optarg); 
+                        break;
+             case 'v' : filt = 0;
+                        break;
+             case 'f' : filt = 1;
+                        break;
+             default: print_usage(); 
+                 exit(EXIT_FAILURE);
+        }
     }
 
-    generator.noSamples = atoi(argv[3]);
-    generator.windowSize = atoi(argv[4]);
-    generator.minNoise = atoi(argv[5]);
-    generator.maxNoise = atoi(argv[6]);
-
-    if (!strcmp(argv[1],"s"))
+    if (select == 1)
     {
-	printf("----------------\n");
-	printf("Sinus generated\n");
-	printf("----------------\n");
+        printf("-----------------------\n");
+        printf("Generate Sinus\n");
+        printf("-----------------------\n");
         array = sinus_array(&generator);
     }
-    else if (!strcmp(argv[1],"q"))
+    else if (select == 2)
     {
-	printf("----------------\n");
-	printf("Square generated\n");
-	printf("----------------\n");
+        printf("-----------------------\n");
+        printf("Generate Square\n");
+        printf("-----------------------\n");
         array = square_array(&generator);
     }
-    else
+    else if (select == 3)
     {
-	printf("----------------\n");
-	printf("Ramp generated\n");
-	printf("----------------\n");
+        printf("-----------------------\n");
+        printf("Generate Ramp\n");
+        printf("-----------------------\n");
         array = ramp_array(&generator);
     }
 
+    print_configuration(&generator);
 
-    if (!strcmp(argv[2],"a"))
+    if (filt == 0)
     {
-	printf("----------------\n");
-	printf("Calc average\n");
-	printf("----------------\n");
+        printf("                \n");
+        printf("Calc average\n");
+        printf("                \n");
         calculateAverage(array, &generator);
     }
-    else
+    else if (filt == 1)
     {
-	printf("----------------\n");
-	printf("Perform filtering\n");
-	printf("----------------\n");
+        printf("                \n");
+        printf("Perform filtering\n");
+        printf("                \n");
         filter(array, &generator);
     }
 
