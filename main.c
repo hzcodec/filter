@@ -19,7 +19,7 @@
 
 void print_usage()
 {
-    printf("Usage: rectangle [ap] -l num -b num\n");
+    printf("Usage: ./gen [sqrn] a:e:g:h:w:v:f-\n");
 }
 
 void print_configuration(Generator *g)
@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
     // w - window size
     // v - calculate average
     // f - perform filtering
-    while ((option = getopt(argc, argv,"sqrn:a:e:g:h:w:v:f:")) != -1) {
+    while ((option = getopt(argc, argv,"sqrn:a:e:g:h:w:vf")) != -1) {
         switch (option) {
              case 's' : select = 1;
                         break;

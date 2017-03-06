@@ -6,7 +6,7 @@ all: main.c
 	$(CC) generator.c -c
 	$(CC) filter.c -c
 	$(CC) average.c -c
-	gcc  generator.o filter.o average.o main.o -lm
+	gcc  generator.o filter.o average.o main.o -lm -o gen
 
 clean:
-	rm -f a.out *.txt *.o
+	rm -f a.out *.txt *.o gen
