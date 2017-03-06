@@ -54,6 +54,54 @@ void print_header(FILE *fp, Generator *gen)
         fprintf(fp, "windowSize: %d\n", gen->windowSize);
 }
 
+float* ramp_array(Generator *gen)
+{
+        FILE *fp;
+	float val;
+	float noise = 0.0;
+
+        float *ar = (float *)malloc(sizeof(float) * gen->noSamples);    
+
+        fp = fopen("ramp_samples.txt", "w");
+
+	print_header(fp, gen);
+
+        for (int i=0; i<60; i++)
+	{
+            noise = rand_interval(0.1, 0.3) / 2;
+	    fprintf(fp, "%.4f\n", 3.0 + noise);
+	    ar[i] = 3.0 + noise;
+	}
+
+        //for (int i=61; i<120; i++)
+        for (int i=61; i<81; i++)
+	{
+	    val = 1.0/6.0 * (i-60) + 3.0;
+            noise = rand_interval(0.1, 0.3) / 2;
+	    fprintf(fp, "%.4f\n", val + noise);
+	    ar[i] = val + noise;
+	}
+
+        //for (int i=121; i<256; i++)
+        for (int i=82; i<90; i++)
+	{
+            noise = rand_interval(0.1, 0.3) / 2;
+	    fprintf(fp, "%.4f\n", 10.0 + noise);
+	    ar[i] = 10.0 + noise;
+	}
+
+        for (int i=91; i<256; i++)
+	{
+            noise = rand_interval(0.1, 0.3) / 2;
+	    fprintf(fp, "%.4f\n", 2.0 + noise);
+	    ar[i] = 2.0 + noise;
+	}
+
+	fclose(fp);
+
+	return ar;
+}
+
 float* sinus_array(Generator *gen)
 {
         FILE *fp;

@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 			  };
 
     if (argc < 4) {
-        printf("Usage: <s | q> <a | f> <number of samples> <window size>\n");
+        printf("Usage: <s | q | r> <a | f> <number of samples> <window size>\n");
 	exit(-1);
     }
 
@@ -45,13 +45,21 @@ int main(int argc, char *argv[])
 	printf("----------------\n");
         array = sinus_array(&generator);
     }
-    else
+    else if (!strcmp(argv[1],"q"))
     {
 	printf("----------------\n");
 	printf("Square generated\n");
 	printf("----------------\n");
         array = square_array(&generator);
     }
+    else
+    {
+	printf("----------------\n");
+	printf("Ramp generated\n");
+	printf("----------------\n");
+        array = ramp_array(&generator);
+    }
+
 
     if (!strcmp(argv[2],"a"))
     {
