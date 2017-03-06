@@ -12,7 +12,6 @@
 #include <stdbool.h>
 #include <string.h>
 #include <getopt.h>
-//#include <unistd.h>
 #include "generator.h"
 #include "average.h"
 #include "filter.h"
@@ -60,12 +59,12 @@ int main(int argc, char *argv[])
     // r => generate ramp
     // n - number of samples
     // a - amplitude
-    // g - minimum noise level
-    // h - maximum noise level
+    // k - minimum noise level
+    // l - maximum noise level
     // w - window size
     // v - calculate average
     // f - perform filtering
-    while ((option = getopt(argc, argv,"sqrn:a:e:g:h:w:vf")) != -1) {
+    while ((option = getopt(argc, argv,"sqrn:a:e:k:l:w:vfh")) != -1) {
         switch (option) {
              case 's' : select = 1;
                         break;
@@ -79,15 +78,18 @@ int main(int argc, char *argv[])
                         break;
              case 'e' : generator.enableNoise = atoi(optarg); 
                         break;
-             case 'g' : generator.minNoise = atof(optarg); 
+             case 'k' : generator.minNoise = atof(optarg); 
                         break;
-             case 'h' : generator.maxNoise = atof(optarg); 
+             case 'l' : generator.maxNoise = atof(optarg); 
                         break;
              case 'w' : generator.windowSize = atoi(optarg); 
                         break;
              case 'v' : filt = 0;
                         break;
              case 'f' : filt = 1;
+                        break;
+             case 'h' : print_usage();
+	                exit(1);
                         break;
              default: print_usage(); 
                  exit(EXIT_FAILURE);
