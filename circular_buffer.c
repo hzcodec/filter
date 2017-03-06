@@ -41,19 +41,15 @@ void PushToQueue(float *p)
 
 float RetrieveFromQueue(void)
 {
-    float p;
-
     if (!wrap) 
     {
 	printf("NULL\n");
         exit(-1);
     }
-
-    p = buffer[start];
-    start = (start + 1) % BUFFER_SIZE;
-
     wrap--;
-    return p;
+
+    start = (start + 1) % BUFFER_SIZE;
+    return buffer[start];
 }
 
 
@@ -97,6 +93,11 @@ int main(int argc, char *argv[])
 
     val = val + 1.0;
     PushToQueue(&val);
+
+    val = RetrieveFromQueue();
+    printf("val:%.2f\n", val);
+    val = RetrieveFromQueue();
+    printf("val:%.2f\n", val);
 
     return 0;
 }
