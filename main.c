@@ -31,12 +31,14 @@ int main(int argc, char *argv[])
 			  };
 
     if (argc < 4) {
-        printf("Usage: <s | q | r> <a | f> <number of samples> <window size>\n");
+        printf("Usage: <s | q | r> <a | f> <number of samples> <window size> <min noise> <max noise>\n");
 	exit(-1);
     }
 
     generator.noSamples = atoi(argv[3]);
     generator.windowSize = atoi(argv[4]);
+    generator.minNoise = atoi(argv[5]);
+    generator.maxNoise = atoi(argv[6]);
 
     if (!strcmp(argv[1],"s"))
     {
