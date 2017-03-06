@@ -3,7 +3,7 @@
     Date         : 2017-03-02
     File         : filter.c
     Reference    : -
-    Description  : 
+    Description  : Filtering function.
 */ 
 #include <stdio.h>
 #include <stdlib.h>

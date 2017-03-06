@@ -17,8 +17,9 @@
  
 int main(int argc, char *argv[])
 {
-    float* array;
+    float* array;  // array holding sample values
 
+    // default values
     Generator generator = {
                            256,    // number of samples
                            1.0,    // amplitude scale factor

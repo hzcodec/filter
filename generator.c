@@ -3,7 +3,8 @@
     Date         : 2017-03-02
     File         : generator.c
     Reference    : 
-    Description  : Generating sinus data and store it in a file. Noise can be added.
+    Description  : generator is generating sinus, square or a ramp signal. Values
+    		   are stored in its corresponding file.
 */ 
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,8 +12,8 @@
 #include <stdbool.h>
 #include "generator.h"
 
-static bool swap = false;
-static float noise = 0.0;
+static bool swap = false;  // swap noise offset
+static float noise = 0.0;  // global noise value
 
 float rand_interval(float min, float max)
 {
@@ -54,8 +55,6 @@ void print_header(FILE *fp, Generator *gen)
         fprintf(fp, "windowSize: %d\n", gen->windowSize);
 }
 
-#define MAX_NOISE 3.6
-#define MIN_NOISE 0.1
 float* ramp_array(Generator *gen)
 {
         FILE *fp;
