@@ -8,10 +8,6 @@
  
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <inttypes.h>
-#include <stdbool.h>
- 
  
 #define BUFFER_SIZE 8
 
