@@ -27,8 +27,9 @@ void print_usage()
     printf("l - maximum noise level\n");
     printf("w - window size\n");
     printf("v - calculate average\n");
-    printf("o - ratio\n");
     printf("f - perform filtering\n");
+    printf("o - ratio for square wave\n");
+    printf("t - ramp slope type\n");
 }
 
 void print_configuration(Generator *g)
@@ -64,17 +65,6 @@ int main(int argc, char *argv[])
     int select = 1; // select sinus/square/ramp, default sinus
     int filt = 0;   // select average calc or filtering
 
-    // s => generate sinus
-    // q => generate square
-    // r => generate ramp
-    // n - number of samples
-    // a - amplitude
-    // k - minimum noise level
-    // l - maximum noise level
-    // w - window size
-    // v - calculate average
-    // o - ratio
-    // f - perform filtering
     while ((option = getopt(argc, argv,"sqrn:a:e:k:l:w:vfo:h")) != -1) {
         switch (option) {
              case 's' : select = 1;
@@ -100,6 +90,8 @@ int main(int argc, char *argv[])
              case 'f' : filt = 1;
                         break;
              case 'o' : generator.ratio = atof(optarg);
+                        break;
+             case 't' : generator.slope = atoi(optarg);
                         break;
              case 'h' : print_usage();
 	                exit(1);

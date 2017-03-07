@@ -10,6 +10,7 @@ typedef struct {
     float scaleFactor;  // scale factor of noise level
     int   ratio;        // square wave ration in %
     int   windowSize;   // window size for average calculation
+    int   slope;        // ramp slope
 }Generator;
 
 float* sinus_array(Generator *gen);

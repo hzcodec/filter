@@ -67,24 +67,31 @@ float* ramp_array(Generator *gen)
 
 	print_header(fp, gen);
 
-        for (int i=0; i<50; i++)
+        for (int i=0; i<39; i++)
 	{
             noise = rand_interval(gen->minNoise, gen->maxNoise);
 	    fprintf(fp, "%.4f\n", 3.0 + noise);
 	    ar[i] = 3.0 + noise;
 	}
 
-        //for (int i=51; i<61; i++)
-        for (int i=51; i<150; i++)
+        //for (int i=40; i<50; i++)
+        //for (int i=40; i<100; i++)
+        //for (int i=40; i<150; i++)
+        for (int i=40; i<200; i++)
 	{
-	    val = 7.0/100.0 * (i-50) + 3.0;
+	    //val = 7.0/10.0 * (i-40) + 3.0;
+	    //val = 7.0/60.0 * (i-40) + 3.0;
+	    //val = 7.0/110.0 * (i-40) + 3.0;
+	    val = 7.0/160.0 * (i-40) + 3.0;
             noise = rand_interval(gen->minNoise, gen->maxNoise);
 	    fprintf(fp, "%.4f\n", val + noise);
 	    ar[i] = val + noise;
 	}
 
-        //for (int i=121; i<256; i++)
-        for (int i=151; i<256; i++)
+        //for (int i=51; i<256; i++)
+        //for (int i=101; i<256; i++)
+        //for (int i=151; i<256; i++)
+        for (int i=201; i<256; i++)
 	{
             noise = rand_interval(gen->minNoise, gen->maxNoise);
 	    fprintf(fp, "%.4f\n", 10.0 + noise);
