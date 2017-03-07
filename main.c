@@ -42,6 +42,7 @@ void print_configuration(Generator *g)
     printf("Scale factor: %.2f\n", g->scaleFactor);
     printf("Ratio: %d\n", g->ratio);
     printf("Window size: %d\n", g->windowSize);
+    printf("Slope type: %d\n", g->slope);
 }
 
  
@@ -59,13 +60,14 @@ int main(int argc, char *argv[])
 			   10.0,   // scale factor of noise level
 			   20,     // square wave ratio
 			   30,     // window size
+			   1,      // slope
 			  };
 
     int option = 0;
     int select = 1; // select sinus/square/ramp, default sinus
     int filt = 0;   // select average calc or filtering
 
-    while ((option = getopt(argc, argv,"sqrn:a:e:k:l:w:vfo:h")) != -1) {
+    while ((option = getopt(argc, argv,"sqrn:a:e:k:l:w:vfo:t:h")) != -1) {
         switch (option) {
              case 's' : select = 1;
                         break;
