@@ -174,24 +174,24 @@ float* square_array(Generator *gen)
 	for (int i=0; i<((int)start); i++)
 	{
                 noise = gen_noise(gen) / gen->scaleFactor;
-                ar[i] = out + noise;
-                fprintf(fp, "%.4f\n", out + noise);
+                ar[i] = (out + noise) * gen->amplitude;
+                fprintf(fp, "%.4f\n", (out + noise) * gen->amplitude);
 	}
 
 	out = 1.0;
 	for (int i=start+1; i<((int)stop); i++)
 	{
                 noise = gen_noise(gen) / gen->scaleFactor;
-                ar[i] = out + noise;
-                fprintf(fp, "%.4f\n", out + noise);
+                ar[i] = (out + noise) * gen->amplitude;
+                fprintf(fp, "%.4f\n", (out + noise) * gen->amplitude);
 	}
 
 	out = 0.0;
 	for (int i=stop+1; i<((int)gen->noSamples); i++)
 	{
                 noise = gen_noise(gen) / gen->scaleFactor;
-                ar[i] = out + noise;
-                fprintf(fp, "%.4f\n", out + noise);
+                ar[i] = (out + noise) * gen->amplitude;
+                fprintf(fp, "%.4f\n", (out + noise) * gen->amplitude);
 	}
 
 	fclose(fp);
