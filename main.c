@@ -16,6 +16,8 @@
 #include "average.h"
 #include "filter.h"
 
+#define DELIMITER "------------------------\n"
+
 void print_usage()
 {
     printf("s => generate sinus\n");
@@ -29,20 +31,27 @@ void print_usage()
     printf("v - calculate average\n");
     printf("f - perform filtering\n");
     printf("o - ratio for square wave\n");
-    printf("t - ramp slope type\n");
+    printf("t - ramp slope type <1-4>\n");
 }
 
 void print_configuration(Generator *g)
 {
-    printf("Number of samples: %d\n", g->noSamples);
-    printf("Amplitude: %.2f\n", g->amplitude);
-    printf("Enable noise: %d\n", g->enableNoise);
-    printf("Min noise: %.2f\n", g->minNoise);
-    printf("Max noise: %.2f\n", g->maxNoise);
-    printf("Scale factor: %.2f\n", g->scaleFactor);
-    printf("Ratio: %d\n", g->ratio);
-    printf("Window size: %d\n", g->windowSize);
-    printf("Slope type: %d\n", g->slope);
+    printf(" Number of samples: %d\n", g->noSamples);
+    printf(" Amplitude: %.2f\n", g->amplitude);
+    printf(" Enable noise: %d\n", g->enableNoise);
+    printf(" Min noise: %.2f\n", g->minNoise);
+    printf(" Max noise: %.2f\n", g->maxNoise);
+    printf(" Scale factor: %.2f\n", g->scaleFactor);
+    printf(" Ratio: %d\n", g->ratio);
+    printf(" Window size: %d\n", g->windowSize);
+    printf(" Slope type: %d\n", g->slope);
+}
+
+void print_header1(char* s)
+{
+    printf(DELIMITER);
+    printf("%s", s);
+    printf(DELIMITER);
 }
 
  
@@ -93,7 +102,15 @@ int main(int argc, char *argv[])
                         break;
              case 'o' : generator.ratio = atof(optarg);
                         break;
-             case 't' : generator.slope = atoi(optarg);
+             case 't' : if (atoi(optarg) > 4)
+	                {
+			    printf("Error to large!\n");
+			    exit(-1);
+			}
+			else
+			{
+	                    generator.slope = atoi(optarg);
+			}
                         break;
              case 'h' : print_usage();
 	                exit(1);
@@ -105,23 +122,17 @@ int main(int argc, char *argv[])
 
     if (select == 1)
     {
-        printf("-----------------------\n");
-        printf("Generate Sinus\n");
-        printf("-----------------------\n");
+	print_header1("     Generate Sinus\n");
         array = sinus_array(&generator);
     }
     else if (select == 2)
     {
-        printf("-----------------------\n");
-        printf("Generate Square\n");
-        printf("-----------------------\n");
+	print_header1("     Generate Square\n");
         array = square_array(&generator);
     }
     else if (select == 3)
     {
-        printf("-----------------------\n");
-        printf("Generate Ramp\n");
-        printf("-----------------------\n");
+	print_header1("     Generate Ramp\n");
         array = ramp_array(&generator);
     }
 
@@ -130,14 +141,14 @@ int main(int argc, char *argv[])
     if (filt == 0)
     {
         printf("                \n");
-        printf("Calc average\n");
+        printf(" Calc average\n");
         printf("                \n");
         calculateAverage(array, &generator);
     }
     else if (filt == 1)
     {
         printf("                \n");
-        printf("Perform filtering\n");
+        printf(" Perform filtering\n");
         printf("                \n");
         filter(array, &generator);
     }

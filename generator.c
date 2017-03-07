@@ -53,6 +53,7 @@ void print_header(FILE *fp, Generator *gen)
         fprintf(fp, "scaleFactor: %.2f\n", gen->scaleFactor);
         fprintf(fp, "ratio: %d\n", gen->ratio);
         fprintf(fp, "windowSize: %d\n", gen->windowSize);
+        fprintf(fp, "Slope: %d\n", gen->slope);
 }
 
 float* ramp_array(Generator *gen)
