@@ -67,36 +67,29 @@ float* ramp_array(Generator *gen)
 
 	print_header(fp, gen);
 
-        for (int i=0; i<60; i++)
+        for (int i=0; i<50; i++)
 	{
             noise = rand_interval(gen->minNoise, gen->maxNoise);
 	    fprintf(fp, "%.4f\n", 3.0 + noise);
 	    ar[i] = 3.0 + noise;
 	}
 
-        for (int i=61; i<120; i++)
-        //for (int i=61; i<81; i++)
+        //for (int i=51; i<61; i++)
+        for (int i=51; i<150; i++)
 	{
-	    val = 1.0/6.0 * (i-60) + 3.0;
+	    val = 7.0/100.0 * (i-50) + 3.0;
             noise = rand_interval(gen->minNoise, gen->maxNoise);
 	    fprintf(fp, "%.4f\n", val + noise);
 	    ar[i] = val + noise;
 	}
 
-        for (int i=121; i<256; i++)
-        //for (int i=82; i<90; i++)
+        //for (int i=121; i<256; i++)
+        for (int i=151; i<256; i++)
 	{
             noise = rand_interval(gen->minNoise, gen->maxNoise);
 	    fprintf(fp, "%.4f\n", 10.0 + noise);
 	    ar[i] = 10.0 + noise;
 	}
-
-        //for (int i=91; i<256; i++)
-	//{
-        //    noise = rand_interval(gen->minNoise, gen->maxNoise);
-	//    fprintf(fp, "%.4f\n", 2.0 + noise);
-	//    ar[i] = 2.0 + noise;
-	//}
 
 	fclose(fp);
 
@@ -156,7 +149,7 @@ float* square_array(Generator *gen)
 
 	for (int i=0; i<((int)start); i++)
 	{
-                noise = gen_noise(gen);
+                noise = gen_noise(gen) / gen->scaleFactor;
                 ar[i] = out + noise;
                 fprintf(fp, "%.4f\n", out + noise);
 	}
@@ -164,7 +157,7 @@ float* square_array(Generator *gen)
 	out = 1.0;
 	for (int i=start+1; i<((int)stop); i++)
 	{
-                noise = gen_noise(gen);
+                noise = gen_noise(gen) / gen->scaleFactor;
                 ar[i] = out + noise;
                 fprintf(fp, "%.4f\n", out + noise);
 	}
@@ -172,7 +165,7 @@ float* square_array(Generator *gen)
 	out = 0.0;
 	for (int i=stop+1; i<((int)gen->noSamples); i++)
 	{
-                noise = gen_noise(gen);
+                noise = gen_noise(gen) / gen->scaleFactor;
                 ar[i] = out + noise;
                 fprintf(fp, "%.4f\n", out + noise);
 	}

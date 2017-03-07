@@ -18,7 +18,17 @@
 
 void print_usage()
 {
-    printf("Usage: ./gen [sqrn] a:e:g:h:w:v:f-\n");
+    printf("s => generate sinus\n");
+    printf("q => generate square\n");
+    printf("r => generate ramp\n");
+    printf("n - number of samples\n");
+    printf("a - amplitude\n");
+    printf("k - minimum noise level\n");
+    printf("l - maximum noise level\n");
+    printf("w - window size\n");
+    printf("v - calculate average\n");
+    printf("o - ratio\n");
+    printf("f - perform filtering\n");
 }
 
 void print_configuration(Generator *g)
@@ -63,8 +73,9 @@ int main(int argc, char *argv[])
     // l - maximum noise level
     // w - window size
     // v - calculate average
+    // o - ratio
     // f - perform filtering
-    while ((option = getopt(argc, argv,"sqrn:a:e:k:l:w:vfh")) != -1) {
+    while ((option = getopt(argc, argv,"sqrn:a:e:k:l:w:vfo:h")) != -1) {
         switch (option) {
              case 's' : select = 1;
                         break;
@@ -87,6 +98,8 @@ int main(int argc, char *argv[])
              case 'v' : filt = 0;
                         break;
              case 'f' : filt = 1;
+                        break;
+             case 'o' : generator.ratio = atof(optarg);
                         break;
              case 'h' : print_usage();
 	                exit(1);
