@@ -9,7 +9,13 @@
 #include <stdio.h>
 #include <stdlib.h>
  
-#define BUFFER_SIZE 8
+// PWM = 12 KHz => 83.3 us
+#define BUFFER_SIZE_TEST  8
+#define BUFFER_SIZE_1024  1024   // 85 ms
+#define BUFFER_SIZE_2048  2048   // 171 ms
+#define BUFFER_SIZE_4096  4096   // 341 ms
+#define BUFFER_SIZE_8192  8192   // 683 ms
+#define BUFFER_SIZE_16384 16384  // 1365 ms
 
 typedef struct
 {
@@ -18,26 +24,27 @@ typedef struct
 }Item;
 
 
-Item buffer[BUFFER_SIZE];
+Item buffer[BUFFER_SIZE_1024];
 int head = 0;
 int tail = 0;
 int wrap = 0;
+
 
 void rb_push(Item *p)
 {
     printf("a:%d, b:%d, head:%d, tail:%d\n", p->a, p->b, head, tail);
 
     buffer[tail] = *p;
-    tail = (tail + 1) % BUFFER_SIZE;
+    tail = (tail + 1) % BUFFER_SIZE_1024;
 
-    if (wrap < BUFFER_SIZE)
+    if (wrap < BUFFER_SIZE_1024)
     {
         wrap++;
     } 
     else 
     {
         /* Overwriting the oldest. Move head to next-oldest */
-        head = (head + 1) % BUFFER_SIZE;
+        head = (head + 1) % BUFFER_SIZE_1024;
 	printf("Wrap around\n");
     }
 }
@@ -51,7 +58,7 @@ Item rb_pull(void)
     }
     wrap--;
 
-    head = (head) % BUFFER_SIZE;
+    head = (head) % BUFFER_SIZE_1024;
 
     printf("head:%d, tail:%d\n", head, tail);
     return buffer[head++];
@@ -66,16 +73,16 @@ int main(int argc, char *argv[])
 
     item.a = 100;
     item.b = 200;
-    for (int i=0; i<8; i++)
+    for (int i=0; i<BUFFER_SIZE_1024-1; i++)
     {
         rb_push(&item);
 	item.a++;
-	item.b--;
+	item.b++;
     }
 
     item.a = 600;
     item.b = 700;
-    for (int i=0; i<8; i++)
+    for (int i=0; i<1; i++)
     {
         rb_push(&item);
 	item.a++;
