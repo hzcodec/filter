@@ -1,7 +1,7 @@
 /*
     Auther       : Heinz Samuelsson
     Date         : 2017-03-06
-    File         : circular_buffer.c
+    File         : circular_buffer2.c
     Reference    : -
     Description  : Ring buffer.
 */ 
@@ -11,14 +11,21 @@
  
 #define BUFFER_SIZE 8
 
-float buffer[BUFFER_SIZE];
+typedef struct
+{
+    int a;
+    int b;
+}Item;
+
+
+Item buffer[BUFFER_SIZE];
 int start = 0;
 int end = 0;
 int wrap = 0;
 
-void PushToQueue(float *p)
+void rb_push(Item *p)
 {
-    printf("Pushed: %.2f at index: %d, wrap: %d, start: %d\n", *p, end, wrap, start);
+    printf("a:%d, b:%d, start:%d, end:%d\n", p->a, p->b, start, end);
 
     buffer[end] = *p;
     end = (end + 1) % BUFFER_SIZE;
@@ -35,7 +42,7 @@ void PushToQueue(float *p)
     }
 }
 
-float RetrieveFromQueue(void)
+Item rb_pull(void)
 {
     if (!wrap) 
     {
@@ -45,6 +52,8 @@ float RetrieveFromQueue(void)
     wrap--;
 
     start = (start) % BUFFER_SIZE;
+
+    printf("start:%d, end:%d\n", start, end);
     return buffer[start++];
 }
 
@@ -52,28 +61,35 @@ float RetrieveFromQueue(void)
 int main(int argc, char *argv[])
 {
  
-    float val = 1.0;
-    float *pVal = &val;
+    Item item;
+    Item *pItem = &item;
 
-
+    item.a = 100;
+    item.b = 200;
     for (int i=0; i<8; i++)
     {
-        PushToQueue(&val);
-        val = val + 1.0;
+        rb_push(&item);
+	item.a++;
+	item.b--;
     }
-    
-    printf("---\n");
 
+    item.a = 600;
+    item.b = 700;
     for (int i=0; i<8; i++)
     {
-        PushToQueue(&val);
-        val = val * 2.0;
+        rb_push(&item);
+	item.a++;
+	item.b--;
     }
 
-    val = RetrieveFromQueue();
-    printf("Pulled - val:%.2f\n", val);
-    val = RetrieveFromQueue();
-    printf("Pulled - val:%.2f\n", val);
+    item = rb_pull();
+    printf("   Pull - a:%d, b:%d\n", item.a, item.b);
+
+    item = rb_pull();
+    printf("   Pull - a:%d, b:%d\n", item.a, item.b);
+
+    item = rb_pull();
+    printf("   Pull - a:%d, b:%d\n", item.a, item.b);
 
     return 0;
 }
