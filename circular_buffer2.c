@@ -19,16 +19,16 @@ typedef struct
 
 
 Item buffer[BUFFER_SIZE];
-int start = 0;
-int end = 0;
+int head = 0;
+int tail = 0;
 int wrap = 0;
 
 void rb_push(Item *p)
 {
-    printf("a:%d, b:%d, start:%d, end:%d\n", p->a, p->b, start, end);
+    printf("a:%d, b:%d, head:%d, tail:%d\n", p->a, p->b, head, tail);
 
-    buffer[end] = *p;
-    end = (end + 1) % BUFFER_SIZE;
+    buffer[tail] = *p;
+    tail = (tail + 1) % BUFFER_SIZE;
 
     if (wrap < BUFFER_SIZE)
     {
@@ -36,8 +36,8 @@ void rb_push(Item *p)
     } 
     else 
     {
-        /* Overwriting the oldest. Move start to next-oldest */
-        start = (start + 1) % BUFFER_SIZE;
+        /* Overwriting the oldest. Move head to next-oldest */
+        head = (head + 1) % BUFFER_SIZE;
 	printf("Wrap around\n");
     }
 }
@@ -51,10 +51,10 @@ Item rb_pull(void)
     }
     wrap--;
 
-    start = (start) % BUFFER_SIZE;
+    head = (head) % BUFFER_SIZE;
 
-    printf("start:%d, end:%d\n", start, end);
-    return buffer[start++];
+    printf("head:%d, tail:%d\n", head, tail);
+    return buffer[head++];
 }
 
 
