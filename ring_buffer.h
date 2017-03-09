@@ -16,7 +16,8 @@ typedef struct
      int* buffer;
      int* buffer_end;
      int* data_start;
-     int* data_end;
+     int* data_end;    // pointer to the last value 
+     int* last;        // temporarily pointing at the last value
      int  count;
      int  size;
  } RingBuffer;
@@ -27,5 +28,7 @@ void rb_free(RingBuffer* rb);
 bool rb_push(RingBuffer* rb, int data);
 int  rb_pop(RingBuffer* rb);
 bool rb_full(RingBuffer* rb);
+int  rb_first(RingBuffer* rb);
+int  rb_last(RingBuffer* rb);
 
 #endif

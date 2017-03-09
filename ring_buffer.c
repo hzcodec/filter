@@ -18,6 +18,7 @@ void rb_init(RingBuffer* rb, int size)
     rb->size = size;
     rb->data_start = rb->buffer;
     rb->data_end = rb->buffer;
+    rb->last = rb->buffer;
     rb->count = 0;
     printf("%s() - start:%p, end: %p, buffer_end:%p\n", __func__, rb->data_start, rb->data_end, rb->buffer_end);
 }
@@ -27,6 +28,7 @@ void rb_free(RingBuffer* rb)
     free(rb->buffer);
 }
 
+
 bool rb_push(RingBuffer* rb, int data)
 {
     if (rb == NULL || rb->buffer == NULL)
@@ -35,7 +37,7 @@ bool rb_push(RingBuffer* rb, int data)
     }
 
     *rb->data_end = data;
-    //printf("1.%s() - data_end: %d\n", __func__, *rb->data_end);
+    rb->last = rb->data_end;  // temp save the last values position
     rb->data_end++;
 
     if (rb->data_end == rb->buffer_end)
@@ -84,6 +86,21 @@ int rb_pop(RingBuffer* rb)
 
     return data;
 }
+
+
+int rb_first(RingBuffer* rb)
+{
+    int data = *rb->data_start;
+    return data;
+}
+
+int rb_last(RingBuffer* rb)
+{
+    data = rb->last;
+    printf("%s() - data:%d, last:%p\n", __func__, data, rb->last);
+    return data;
+}
+
 
 bool rb_full(RingBuffer* rb)
 {

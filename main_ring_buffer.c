@@ -18,16 +18,22 @@ int main(int argc, char *argv[])
 {
     RingBuffer myBuff;
     int value = 0;
+    int offset = 0;
+    int firstValue = 0;
+    int lastValue = 0;
 
     rb_init(&myBuff, BUFFER_SIZE_TEST);
     init_fill(&myBuff);
 
+    firstValue = rb_first(&myBuff);
+    lastValue = rb_last(&myBuff);
+    printf("fv:%d, lv:%d\n", firstValue, lastValue);
+
     value = rb_pop(&myBuff);
-    printf("value:%d\n", value);
-    value = rb_pop(&myBuff);
-    printf("value:%d\n", value);
-    value = rb_pop(&myBuff);
-    printf("value:%d\n", value);
+
+    firstValue = rb_first(&myBuff);
+    lastValue = rb_last(&myBuff);
+    printf("fv:%d, lv:%d\n", firstValue, lastValue);
 
     rb_free(&myBuff);
 
