@@ -75,8 +75,9 @@ int main(int argc, char *argv[])
     int option = 0;
     int select = 1; // select sinus/square/ramp, default sinus
     int filt = 0;   // select average calc or filtering
+    int simple_filt = 0;   // select simple filtering
 
-    while ((option = getopt(argc, argv,"sqrn:a:e:k:l:w:vfo:t:h")) != -1) {
+    while ((option = getopt(argc, argv,"sqrn:a:e:k:l:w:vfgo:t:h")) != -1) {
         switch (option) {
              case 's' : select = 1;
                         break;
@@ -99,6 +100,8 @@ int main(int argc, char *argv[])
              case 'v' : filt = 0;
                         break;
              case 'f' : filt = 1;
+                        break;
+             case 'g' : simple_filt = 1;
                         break;
              case 'o' : generator.ratio = atof(optarg);
                         break;
@@ -138,20 +141,29 @@ int main(int argc, char *argv[])
 
     print_configuration(&generator);
 
-    if (filt == 0)
+    if (filt == 0 && simple_filt == 0)
     {
         printf("                \n");
         printf(" Calc average\n");
         printf("                \n");
         calculateAverage(array, &generator);
     }
-    else if (filt == 1)
+    else if (filt == 1 && simple_filt == 0)
     {
         printf("                \n");
         printf(" Perform filtering\n");
         printf("                \n");
         filter(array, &generator);
     }
+    else if (simple_filt == 1)
+    {
+        printf("                \n");
+        printf(" Perform simple filtering\n");
+        printf("                \n");
+        simple_filter(array, &generator);
+    }
+
+
 
     free(array);
  
