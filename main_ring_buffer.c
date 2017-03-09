@@ -10,28 +10,26 @@ int main(int argc, char *argv[])
 
     rb_init(&myBuff, 4);
 
-    for (int i=0; i<6; i++)
+    for (int i=0; i<5; i++)
     {
         rb_push(&myBuff, 100+i);
     }
+    value = rb_pop(&myBuff);
+    printf("value:%d\n", value);
+    value = rb_pop(&myBuff);
+    printf("value:%d\n", value);
 
-    //printf("buffer_end:%d\n", *myBuff.buffer_end);
-    //printf("data_start:%d\n", *myBuff.data_start);
-    //printf("data_end:%d\n", *myBuff.data_end);
-    //printf("count:%d\n", myBuff.count);
-    //printf("size:%d\n", myBuff.size);
+    rb_push(&myBuff, 800);
+    rb_push(&myBuff, 900);
 
-    //for (int i=0; i<8; i++)
-    //{
-    //    value = rb_pop(&myBuff);
-    //    printf("value[%d]:%d\n", i, value);
-    //}
-
-    //printf("buffer_end:%d\n", *myBuff.buffer_end);
-    //printf("data_start:%d\n", *myBuff.data_start);
-    //printf("data_end:%d\n", *myBuff.data_end);
-    //printf("count:%d\n", myBuff.count);
-    //printf("size:%d\n", myBuff.size);
+    value = rb_pop(&myBuff);
+    printf("value:%d\n", value);
+    value = rb_pop(&myBuff);
+    printf("value:%d\n", value);
+    value = rb_pop(&myBuff);
+    printf("value:%d\n", value);
+    value = rb_pop(&myBuff);
+    printf("value:%d\n", value);
 
     rb_free(&myBuff);
 

@@ -19,6 +19,7 @@ void rb_init(RingBuffer* rb, int size)
     rb->data_start = rb->buffer;
     rb->data_end = rb->buffer;
     rb->count = 0;
+    printf("%s() - start:%p, end: %p, buffer_end:%p\n", __func__, rb->data_start, rb->data_end, rb->buffer_end);
 }
 
 void rb_free(RingBuffer* rb)
@@ -32,20 +33,20 @@ bool rb_push(RingBuffer* rb, int data)
         return false;
 
     *rb->data_end = data;
-    printf("1.%s() - data_end: %d\n", __func__, *rb->data_end);
+    //printf("1.%s() - data_end: %d\n", __func__, *rb->data_end);
     rb->data_end++;
 
     if (rb->data_end == rb->buffer_end)
     {
         rb->data_end = rb->buffer;
-        printf("2.%s() - data_end:%d, buffer_end:%d\n", __func__, *rb->data_end, *rb->buffer_end);
+        //printf("2.%s() - data_end:%d, buffer_end:%d\n", __func__, *rb->data_end, *rb->buffer_end);
     }
 
     if (rb_full(rb))
     {
         if ((rb->data_start + 1) == rb->buffer_end)
         {
-            printf("3.%s() - data_start:%d, buffer_end:%d\n", __func__, *rb->data_start, *rb->buffer_end);
+            //printf("3.%s() - data_start:%d, buffer_end:%d\n", __func__, *rb->data_start, *rb->buffer_end);
             rb->data_start = rb->buffer;
 	}
         else
@@ -56,9 +57,10 @@ bool rb_push(RingBuffer* rb, int data)
     else
     {
         rb->count++;
-        printf("4.%s() - count: %d\n", __func__, rb->count);
+        //printf("4.%s() - count: %d\n", __func__, rb->count);
     }
 
+    printf("%s() - start:%p, end: %p, buffer_end:%p, count:%d\n", __func__, rb->data_start, rb->data_end, rb->buffer_end, rb->count);
     return true;
 }
 
@@ -73,11 +75,13 @@ int rb_pop(RingBuffer* rb)
         rb->data_start = rb->buffer;
     rb->count--;
 
+    printf("%s() - start:%p, end: %p, buffer_end:%p, count:%d\n", __func__, rb->data_start, rb->data_end, rb->buffer_end, rb->count);
+
     return data;
 }
 
 bool rb_full(RingBuffer* rb)
 {
-    printf("%s() - count: %d, size:%d\n", __func__, rb->count, rb->size);
+    //printf("%s() - count: %d, size:%d\n", __func__, rb->count, rb->size);
     return rb->count == rb->size;
 }
