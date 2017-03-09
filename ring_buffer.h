@@ -2,7 +2,7 @@
 #define _RING_BUFFERE_H_
 
 // PWM = 12 KHz => 83.3 us
-#define BUFFER_SIZE_TEST  8
+#define BUFFER_SIZE_TEST  4
 #define BUFFER_SIZE_1024  1024   // 85 ms
 #define BUFFER_SIZE_2048  2048   // 171 ms
 #define BUFFER_SIZE_4096  4096   // 341 ms
