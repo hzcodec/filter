@@ -29,8 +29,27 @@ void rb_free(RingBuffer* rb)
 }
 
 
+void calc_average(RingBuffer *buff)
+{
+    int *tmp;
+    tmp = buff->data_start;
+
+    //printf("buff->last:%d\n", *buff->last);
+
+    printf("buff->start:%d\n", *tmp);
+    tmp++;
+    printf("buff->start:%d\n", *tmp);
+    tmp++;
+    printf("buff->start:%d\n", *tmp);
+    tmp++;
+    printf("buff->start:%d\n", *tmp);
+    tmp++;
+}
+
+
 bool rb_push(RingBuffer* rb, int data)
 {
+    printf("1.%s() - start:%p, end: %p, count:%d, data:%d\n", __func__, rb->data_start, rb->data_end, rb->count, data);
     if (rb == NULL || rb->buffer == NULL)
     {
         return false;
@@ -61,7 +80,7 @@ bool rb_push(RingBuffer* rb, int data)
         rb->count++;
     }
 
-    printf("%s() - start:%p, end: %p, buffer_end:%p, count:%d\n", __func__, rb->data_start, rb->data_end, rb->buffer_end, rb->count);
+    printf("2.%s() - start:%p, end: %p, count:%d, data:%d\n\n", __func__, rb->data_start, rb->data_end, rb->count, data);
     return true;
 }
 
@@ -73,6 +92,7 @@ int rb_pop(RingBuffer* rb)
     }
 
     int data = *rb->data_start;
+    printf("3.%s() - start:%p, end: %p, count:%d, data:%d\n\n", __func__, rb->data_start, rb->data_end, rb->count, data);
     rb->data_start++;
 
     if (rb->data_start == rb->buffer_end)
@@ -82,9 +102,35 @@ int rb_pop(RingBuffer* rb)
 
     rb->count--;
 
-    printf("%s() - start:%p, end: %p, buffer_end:%p, count:%d\n", __func__, rb->data_start, rb->data_end, rb->buffer_end, rb->count);
+    //printf("%s() - start:%p, end: %p, buffer_end:%p, count:%d\n", __func__, rb->data_start, rb->data_end, rb->buffer_end, rb->count);
 
     return data;
+}
+
+void rb_pop2(RingBuffer* rb)
+{
+    int *start;
+    int *end;
+    int data;
+ 
+    start = rb->data_start;
+    end = rb->data_end;
+
+    for (int i=0; i<4; i++)
+    {
+        data = *start;
+        printf("4.%s() - start:%p, end: %p, data:%d\n", __func__, start, end, data);
+        start++;
+
+        if (start == rb->buffer_end)
+        {
+            start = rb->buffer;
+        }
+
+    rb->count--;
+
+    }
+    printf("\n");
 }
 
 
@@ -96,8 +142,8 @@ int rb_first(RingBuffer* rb)
 
 int rb_last(RingBuffer* rb)
 {
-    data = rb->last;
-    printf("%s() - data:%d, last:%p\n", __func__, data, rb->last);
+    int data = *rb->last;
+    //printf("%s() - data:%d, last:%p\n", __func__, data, rb->last);
     return data;
 }
 
