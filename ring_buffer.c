@@ -49,7 +49,7 @@ void calc_average(RingBuffer *buff)
 
 bool rb_push(RingBuffer* rb, int data)
 {
-    printf("1.%s() - start:%p, end: %p, count:%d, data:%d\n", __func__, rb->data_start, rb->data_end, rb->count, data);
+    //printf("1.%s() - start:%p, end: %p, count:%d, data:%d\n", __func__, rb->data_start, rb->data_end, rb->count, data);
     if (rb == NULL || rb->buffer == NULL)
     {
         return false;
@@ -80,7 +80,7 @@ bool rb_push(RingBuffer* rb, int data)
         rb->count++;
     }
 
-    printf("2.%s() - start:%p, end: %p, count:%d, data:%d\n\n", __func__, rb->data_start, rb->data_end, rb->count, data);
+    //printf("2.%s() - start:%p, end: %p, count:%d, data:%d\n\n", __func__, rb->data_start, rb->data_end, rb->count, data);
     return true;
 }
 
@@ -112,6 +112,7 @@ void rb_pop2(RingBuffer* rb)
     int *start;
     int *end;
     int data;
+    float avg_data = 0.0;
  
     start = rb->data_start;
     end = rb->data_end;
@@ -119,6 +120,7 @@ void rb_pop2(RingBuffer* rb)
     for (int i=0; i<4; i++)
     {
         data = *start;
+	avg_data = avg_data + (float)data;
         printf("4.%s() - start:%p, end: %p, data:%d\n", __func__, start, end, data);
         start++;
 
@@ -130,6 +132,7 @@ void rb_pop2(RingBuffer* rb)
     rb->count--;
 
     }
+    printf("avg_data:%.2f\n", avg_data/4.0);
     printf("\n");
 }
 
