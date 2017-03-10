@@ -16,5 +16,6 @@ typedef struct {
 float* sinus_array(Generator *gen);
 float* square_array(Generator *gen);
 float* ramp_array(Generator *gen);
+float* counter_array(Generator *gen);
 
 #endif

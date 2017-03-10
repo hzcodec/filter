@@ -43,6 +43,7 @@ float gen_noise(Generator *gen)
 	return noise;
 }
 
+
 void print_header(FILE *fp, Generator *gen)
 {
         fprintf(fp, "noSamples: %d\n", gen->noSamples); 
@@ -55,6 +56,7 @@ void print_header(FILE *fp, Generator *gen)
         fprintf(fp, "windowSize: %d\n", gen->windowSize);
         fprintf(fp, "Slope: %d\n", gen->slope);
 }
+
 
 float* ramp_array(Generator *gen)
 {
@@ -122,6 +124,7 @@ float* ramp_array(Generator *gen)
 	return ar;
 }
 
+
 float* sinus_array(Generator *gen)
 {
         FILE *fp;
@@ -158,6 +161,28 @@ float* sinus_array(Generator *gen)
 
         return ar;
 }
+
+
+float* counter_array(Generator *gen)
+{
+        FILE *fp;
+	float counter = 1.0;
+
+        fp = fopen("counter_samples.txt", "w");
+        
+        float *ar = (float *)malloc(sizeof(float) * gen->noSamples);    
+
+        for (int i=0; i<gen->noSamples; i++)
+        {
+            fprintf(fp, "%.4f\n", counter++);
+            ar[i] = counter;
+        }
+
+	fclose(fp);
+
+        return ar;
+}
+
 
 float* square_array(Generator *gen)
 {

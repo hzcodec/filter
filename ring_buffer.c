@@ -104,13 +104,12 @@ void rb_peek(RingBuffer* rb)
 {
     float *start;
     float *end;
-    float data;                 // current sampled data within the window
+    float data;               // current sampled data within the window
     float average_data = 0.0; // calculated average data within the window
  
     start = rb->data_start;
     end = rb->data_end;
 
-    printf("data_start:%p, data_end:%p, buffer_end:%p, last:%p\n", rb->data_start, rb->data_end, rb->buffer_end, rb->last);
     printf("data_end:%.2f, last:%.2f\n", *rb->data_end, *rb->last);
 
     // calculate slope collected in the window
