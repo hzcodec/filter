@@ -113,7 +113,7 @@ void rb_peek(RingBuffer* rb)
     printf("data_end:%.2f, last:%.2f\n", *rb->data_end, *rb->last);
 
     // calculate slope collected in the window
-    float slope = (*rb->last - *rb->data_end) / 4.0;
+    float slope = (*rb->last - *rb->data_end) / (float)WINDOW_SIZE;
     printf("  --> slope:%.2f <--\n", slope);
     fprintf(fp, "%.4f\n", slope);
 

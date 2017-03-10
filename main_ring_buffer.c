@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include "ring_buffer.h"
 
-#define LOCAL_BUFFER_SIZE  4
+#define LOCAL_BUFFER_SIZE 10 
 #define RAMP_DATA_BUFFER 512
 
 static int indata[16] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
@@ -15,11 +15,15 @@ static FILE *fp;
 // initial fill the buffer
 void init_fill(RingBuffer *b)
 {
-    for (int i=0; i<LOCAL_BUFFER_SIZE; i++)
+    int cnt = 0;
+
+    for (int i=0; i<WINDOW_SIZE; i++)
     {
+	cnt++;
         //rb_push(b, outdata[i]);
         rb_push(b, ramp_indata[i]);
     }
+    printf("Initial number of filled:%d\n", cnt);
 }
 
 
@@ -49,17 +53,18 @@ int main(int argc, char *argv[])
 {
     RingBuffer myBuff;
     
+    // read input data to ring buffer
     read_rampdata();
 
-    rb_init(&myBuff, LOCAL_BUFFER_SIZE);
+    rb_init(&myBuff, WINDOW_SIZE);
 
     init_fill(&myBuff);
     rb_peek(&myBuff);
 
-    for (int i=0; i<5; i++)
+    for (int i=0; i<128; i++)
     {
         ///rb_push(&myBuff, outdata[i+4]);
-        rb_push(&myBuff, ramp_indata[i+LOCAL_BUFFER_SIZE]);
+        rb_push(&myBuff, ramp_indata[i+WINDOW_SIZE]);
         rb_peek(&myBuff);
     }
 

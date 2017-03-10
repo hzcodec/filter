@@ -11,7 +11,7 @@
 #define BUFFER_SIZE_8192  8192   // 683 ms
 #define BUFFER_SIZE_16384 16384  // 1365 ms
 
-#define WINDOW_SIZE 4
+#define WINDOW_SIZE 10
 
 typedef struct
 {
