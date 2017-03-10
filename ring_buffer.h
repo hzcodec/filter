@@ -4,6 +4,7 @@
 // PWM = 12 KHz => 83.3 us
 #define BUFFER_SIZE_TEST_4  4
 #define BUFFER_SIZE_TEST_8  8
+#define BUFFER_SIZE_128   128    // 10 ms
 #define BUFFER_SIZE_1024  1024   // 85 ms
 #define BUFFER_SIZE_2048  2048   // 171 ms
 #define BUFFER_SIZE_4096  4096   // 341 ms
@@ -32,5 +33,7 @@ bool rb_full(RingBuffer* rb);
 float  rb_first(RingBuffer* rb);
 float  rb_last(RingBuffer* rb);
 void rb_peek(RingBuffer* rb);
+
+void close_fp(void);
 
 #endif

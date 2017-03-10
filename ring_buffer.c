@@ -16,6 +16,8 @@
 #include <stdbool.h>
 #include "ring_buffer.h" 
 
+static FILE *fp;
+
 void rb_init(RingBuffer* rb, int size)
 {
     rb->buffer = malloc(sizeof(float) * size);
@@ -26,6 +28,8 @@ void rb_init(RingBuffer* rb, int size)
     rb->last = rb->buffer;
     rb->count = 0;
     printf("%s() - start:%p, end: %p, buffer_end:%p\n", __func__, rb->data_start, rb->data_end, rb->buffer_end);
+
+    fp = fopen("slope.txt", "w");
 }
 
 void rb_free(RingBuffer* rb)
@@ -111,7 +115,8 @@ void rb_peek(RingBuffer* rb)
 
     // calculate slope collected in the window
     float slope = (*rb->last - *rb->data_end) / 4.0;
-    printf("--> slope:%.2f <--\n", slope);
+    printf("  --> slope:%.2f <--\n", slope);
+    fprintf(fp, "%.4f\n", slope);
 
     for (int i=0; i<WINDOW_SIZE; i++)
     {
@@ -128,7 +133,7 @@ void rb_peek(RingBuffer* rb)
     rb->count--;
 
     }
-    printf("average_data:%.2f\n", average_data/4.0);
+    //printf("%s() - average_data:%.2f\n", __func__, average_data/4.0);
     printf("\n");
 }
 
@@ -138,6 +143,7 @@ float rb_first(RingBuffer* rb)
     float data = *rb->data_start;
     return data;
 }
+
 
 float rb_last(RingBuffer* rb)
 {
@@ -150,4 +156,9 @@ float rb_last(RingBuffer* rb)
 bool rb_full(RingBuffer* rb)
 {
     return rb->count == rb->size;
+}
+
+void close_fp(void)
+{
+    fclose(fp);
 }
