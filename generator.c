@@ -69,9 +69,9 @@ float* ramp_array(Generator *gen)
 
         fp = fopen("ramp_samples.txt", "w");
 
-	print_header(fp, gen);
+	//print_header(fp, gen);
 
-        for (int i=0; i<39; i++)
+        for (int i=0; i<40; i++)
 	{
             noise = rand_interval(gen->minNoise, gen->maxNoise);
 	    fprintf(fp, "%.4f\n", 3.0); //+ noise);
@@ -82,38 +82,39 @@ float* ramp_array(Generator *gen)
 	{
 	    case 1: idx1 = 50;
 	            div = 10.0;
-		    idx2 = 51;
+		    idx2 = 50;
 		    break;
 	    case 2: idx1 = 100;
 	            div = 60.0;
-		    idx2 = 101;
+		    idx2 = 100;
 		    break;
 	    case 3: idx1 = 150;
 	            div = 110.0;
-		    idx2 = 151;
+		    idx2 = 150;
 		    break;
 	    case 4: idx1 = 200;
 	            div = 160.0;
-		    idx2 = 201;
+		    idx2 = 200;
 		    break;
             default: idx1 = 200;
 	             div = 160.0;
-		     idx2 = 201;
+		     idx2 = 200;
 		     break;
 	}
+
         for (int i=40; i<idx1; i++)
 	{
 	    val = 7.0/div * (i-40) + 3.0;
             noise = rand_interval(gen->minNoise, gen->maxNoise);
 	    fprintf(fp, "%.4f\n", val); // + noise);
-	    ar[i] = val + noise;
+	    ar[i] = val;// + noise;
 	}
 
         for (int i=idx2; i<gen->noSamples; i++)
 	{
             noise = rand_interval(gen->minNoise, gen->maxNoise);
 	    fprintf(fp, "%.4f\n", 10.0); // + noise);
-	    ar[i] = 10.0 + noise;
+	    ar[i] = 10.0;// + noise;
 	}
 
 	fclose(fp);
@@ -132,7 +133,7 @@ float* sinus_array(Generator *gen)
         float rad = 0.0;
         float *ar = (float *)malloc(sizeof(float) * gen->noSamples);    
 
-	print_header(fp, gen);
+	//print_header(fp, gen);
 
         for (int i=0; i<gen->noSamples; i++)
         {
@@ -170,7 +171,7 @@ float* square_array(Generator *gen)
 	float start = (float)gen->noSamples/2.0 - dist/2.0;
 	float stop = (float)gen->noSamples/2.0 + dist/2.0;
 
-	print_header(fp, gen);
+	//print_header(fp, gen);
 
 	for (int i=0; i<((int)start); i++)
 	{
