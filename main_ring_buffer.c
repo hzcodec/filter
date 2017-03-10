@@ -4,11 +4,12 @@
 #include "ring_buffer.h"
 
 #define LOCAL_BUFFER_SIZE  BUFFER_SIZE_128
+#define RAMP_DATA_BUFFER 512
 
 static int indata[16] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
 static int outdata[16] = {1,4,9,16,25,36,49,64,81,100,121,144,169,196,225,256};
 //static float outdata[16] = {1.0,8.0,27.0,64.0,125.0,216.0,343.0,512.0,729.0,1000.0,1331.0,1728.0,2197.0,2744.0,3375.0,4096.0};
-float ramp_indata[256];
+float ramp_indata[RAMP_DATA_BUFFER];
 static FILE *fp;
 
 void init_fill(RingBuffer *b)
@@ -24,6 +25,7 @@ void init_fill(RingBuffer *b)
 void read_rampdata(void)
 {
     fp = fopen("ramp_samples.txt", "r");
+    //fp = fopen("filter.txt", "r");
 
     if (fp == NULL)
     {
@@ -31,7 +33,7 @@ void read_rampdata(void)
         exit(-1);
     }
 
-    for (int i=0; i<512; i++)
+    for (int i=0; i<RAMP_DATA_BUFFER; i++)
     {
         fscanf(fp, "%f,",&ramp_indata[i]);
 	printf("%s() - data[%d]:%.2f\n", __func__, i, ramp_indata[i]);
@@ -52,7 +54,7 @@ int main(int argc, char *argv[])
     init_fill(&myBuff);
     rb_peek(&myBuff);
 
-    for (int i=0; i<120; i++)
+    for (int i=0; i<250; i++)
     {
         ///rb_push(&myBuff, outdata[i+4]);
         rb_push(&myBuff, ramp_indata[i+LOCAL_BUFFER_SIZE-1]);
