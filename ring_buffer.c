@@ -29,24 +29,6 @@ void rb_free(RingBuffer* rb)
 }
 
 
-void calc_average(RingBuffer *buff)
-{
-    int *tmp;
-    tmp = buff->data_start;
-
-    //printf("buff->last:%d\n", *buff->last);
-
-    printf("buff->start:%d\n", *tmp);
-    tmp++;
-    printf("buff->start:%d\n", *tmp);
-    tmp++;
-    printf("buff->start:%d\n", *tmp);
-    tmp++;
-    printf("buff->start:%d\n", *tmp);
-    tmp++;
-}
-
-
 bool rb_push(RingBuffer* rb, int data)
 {
     //printf("1.%s() - start:%p, end: %p, count:%d, data:%d\n", __func__, rb->data_start, rb->data_end, rb->count, data);
@@ -107,21 +89,21 @@ int rb_pop(RingBuffer* rb)
     return data;
 }
 
-void rb_pop2(RingBuffer* rb)
+void rb_peek(RingBuffer* rb)
 {
     int *start;
     int *end;
-    int data;
-    float avg_data = 0.0;
+    int data;                 // current sampled data within the window
+    float average_data = 0.0; // calculated average data within the window
  
     start = rb->data_start;
     end = rb->data_end;
 
-    for (int i=0; i<4; i++)
+    for (int i=0; i<WINDOW_SIZE; i++)
     {
         data = *start;
-	avg_data = avg_data + (float)data;
-        printf("4.%s() - start:%p, end: %p, data:%d\n", __func__, start, end, data);
+	average_data = average_data + (float)data;
+        printf("%s() - start:%p, end: %p, data:%d\n", __func__, start, end, data);
         start++;
 
         if (start == rb->buffer_end)
@@ -132,7 +114,7 @@ void rb_pop2(RingBuffer* rb)
     rb->count--;
 
     }
-    printf("avg_data:%.2f\n", avg_data/4.0);
+    printf("average_data:%.2f\n", average_data/4.0);
     printf("\n");
 }
 

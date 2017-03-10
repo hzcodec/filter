@@ -32,12 +32,12 @@ int main(int argc, char *argv[])
     rb_init(&myBuff, BUFFER_SIZE_TEST_4);
 
     init_fill(&myBuff);
-    rb_pop2(&myBuff);
+    rb_peek(&myBuff);
 
     for (int i=0; i<5; i++)
     {
 	rb_push(&myBuff, outdata[i+4]);
-        rb_pop2(&myBuff);
+        rb_peek(&myBuff);
     }
     rb_free(&myBuff);
 

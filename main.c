@@ -30,6 +30,7 @@ void print_usage()
     printf("w - window size\n");
     printf("v - calculate average\n");
     printf("f - perform filtering\n");
+    printf("g - perform simple filtering\n");
     printf("o - ratio for square wave\n");
     printf("t - ramp slope type <1-4>\n");
 }

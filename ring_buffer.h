@@ -10,6 +10,8 @@
 #define BUFFER_SIZE_8192  8192   // 683 ms
 #define BUFFER_SIZE_16384 16384  // 1365 ms
 
+#define WINDOW_SIZE 4
+
 
 
 typedef struct
@@ -33,6 +35,6 @@ bool rb_full(RingBuffer* rb);
 int  rb_first(RingBuffer* rb);
 int  rb_last(RingBuffer* rb);
 void calc_average(RingBuffer *buff);
-void rb_pop2(RingBuffer* rb);
+void rb_peek(RingBuffer* rb);
 
 #endif
