@@ -132,7 +132,7 @@ void rb_peek(RingBuffer* rb)
     rb->count--;
 
     }
-    //printf("%s() - average_data:%.2f\n", __func__, average_data/4.0);
+    printf("%s() - average_data:%.2f\n", __func__, average_data/(float)WINDOW_SIZE);
     printf("\n");
 }
 

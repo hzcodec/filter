@@ -23,14 +23,14 @@ void init_fill(RingBuffer *b)
         //rb_push(b, outdata[i]);
         rb_push(b, ramp_indata[i]);
     }
-    printf("Initial number of filled:%d\n", cnt);
+    printf("Buffer initial filled with <%d> numbers of data\n", cnt);
 }
 
 
 void read_rampdata(void)
 {
-    //fp = fopen("ramp_samples.txt", "r");
-    fp = fopen("counter_samples.txt", "r");
+    fp = fopen("ramp_samples.txt", "r");
+    //fp = fopen("counter_samples.txt", "r");
     //fp = fopen("filter.txt", "r");
 
     if (fp == NULL)
@@ -42,7 +42,7 @@ void read_rampdata(void)
     for (int i=0; i<RAMP_DATA_BUFFER; i++)
     {
         fscanf(fp, "%f,",&ramp_indata[i]);
-	printf("%s() - data[%d]:%.2f\n", __func__, i, ramp_indata[i]);
+	//printf("%s() - data[%d]:%.2f\n", __func__, i, ramp_indata[i]);
     }
 
     fclose(fp);
@@ -52,6 +52,10 @@ void read_rampdata(void)
 int main(int argc, char *argv[])
 {
     RingBuffer myBuff;
+
+    printf("*****************************************************************\n");
+    printf("*                          Ring Buffer                          *\n");
+    printf("*****************************************************************\n");
     
     // read input data to ring buffer
     read_rampdata();
