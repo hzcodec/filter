@@ -12,28 +12,25 @@
 
 #define WINDOW_SIZE 4
 
-
-
 typedef struct
 {
-     int* buffer;
-     int* buffer_end;  // pointer where data is pushed to
-     int* data_start;  // pointer where data is poped from
-     int* data_end;    // pointer to the last value 
-     int* last;        // temporarily pointing at the last written value in the window
+     float* buffer;
+     float* buffer_end;  // pointer where data is pushed to
+     float* data_start;  // pointer where data is poped from
+     float* data_end;    // pointer to the last value 
+     float* last;        // temporarily pointing at the last written value in the window
      int  count;
      int  size;
  } RingBuffer;
 
-
 void rb_init(RingBuffer* rb, int size);
 void rb_free(RingBuffer* rb);
-bool rb_push(RingBuffer* rb, int data);
-int  rb_pop(RingBuffer* rb);
+bool rb_push(RingBuffer* rb, float data);
+float  rb_pop(RingBuffer* rb);
 bool rb_full(RingBuffer* rb);
 
-int  rb_first(RingBuffer* rb);
-int  rb_last(RingBuffer* rb);
+float  rb_first(RingBuffer* rb);
+float  rb_last(RingBuffer* rb);
 void rb_peek(RingBuffer* rb);
 
 #endif

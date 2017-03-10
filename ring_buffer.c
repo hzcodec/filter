@@ -18,7 +18,7 @@
 
 void rb_init(RingBuffer* rb, int size)
 {
-    rb->buffer = malloc(sizeof(int) * size);
+    rb->buffer = malloc(sizeof(float) * size);
     rb->buffer_end = rb->buffer + size;
     rb->size = size;
     rb->data_start = rb->buffer;
@@ -34,7 +34,7 @@ void rb_free(RingBuffer* rb)
 }
 
 
-bool rb_push(RingBuffer* rb, int data)
+bool rb_push(RingBuffer* rb, float data)
 {
     //printf("1.%s() - start:%p, end: %p, count:%d, data:%d\n", __func__, rb->data_start, rb->data_end, rb->count, data);
     if (rb == NULL || rb->buffer == NULL)
@@ -72,15 +72,15 @@ bool rb_push(RingBuffer* rb, int data)
 }
 
 
-int rb_pop(RingBuffer* rb)
+float rb_pop(RingBuffer* rb)
 {
     if (rb == NULL || rb->buffer == NULL)
     {
         return false;
     }
 
-    int data = *rb->data_start;
-    printf("3.%s() - start:%p, end: %p, count:%d, data:%d\n\n", __func__, rb->data_start, rb->data_end, rb->count, data);
+    float data = *rb->data_start;
+    printf("3.%s() - start:%p, end: %p, count:%d, data:%.2f\n\n", __func__, rb->data_start, rb->data_end, rb->count, data);
     rb->data_start++;
 
     if (rb->data_start == rb->buffer_end)
@@ -98,24 +98,26 @@ int rb_pop(RingBuffer* rb)
 
 void rb_peek(RingBuffer* rb)
 {
-    int *start;
-    int *end;
-    int data;                 // current sampled data within the window
+    float *start;
+    float *end;
+    float data;                 // current sampled data within the window
     float average_data = 0.0; // calculated average data within the window
  
     start = rb->data_start;
     end = rb->data_end;
 
     printf("data_start:%p, data_end:%p, buffer_end:%p, last:%p\n", rb->data_start, rb->data_end, rb->buffer_end, rb->last);
-    printf("data_end:%d, last:%d\n", *rb->data_end, *rb->last);
+    printf("data_end:%.2f, last:%.2f\n", *rb->data_end, *rb->last);
+
+    // calculate slope collected in the window
     float slope = (*rb->last - *rb->data_end) / 4.0;
-    printf("slope:%.2f\n", slope);
+    printf("--> slope:%.2f <--\n", slope);
 
     for (int i=0; i<WINDOW_SIZE; i++)
     {
         data = *start;
-	average_data = average_data + (float)data;
-        printf("%s() - start:%p, end: %p, data:%d\n", __func__, start, end, data);
+	average_data = average_data + data;
+        printf("%s() - start:%p, end: %p, data:%.2f\n", __func__, start, end, data);
         start++;
 
         if (start == rb->buffer_end)
@@ -131,15 +133,15 @@ void rb_peek(RingBuffer* rb)
 }
 
 
-int rb_first(RingBuffer* rb)
+float rb_first(RingBuffer* rb)
 {
-    int data = *rb->data_start;
+    float data = *rb->data_start;
     return data;
 }
 
-int rb_last(RingBuffer* rb)
+float rb_last(RingBuffer* rb)
 {
-    int data = *rb->last;
+    float data = *rb->last;
     //printf("%s() - data:%d, last:%p\n", __func__, data, rb->last);
     return data;
 }
