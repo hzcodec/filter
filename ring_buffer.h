@@ -20,7 +20,7 @@ typedef struct
      int* buffer_end;  // pointer where data is pushed to
      int* data_start;  // pointer where data is poped from
      int* data_end;    // pointer to the last value 
-     int* last;        // temporarily pointing at the last value
+     int* last;        // temporarily pointing at the last written value in the window
      int  count;
      int  size;
  } RingBuffer;
@@ -34,7 +34,6 @@ bool rb_full(RingBuffer* rb);
 
 int  rb_first(RingBuffer* rb);
 int  rb_last(RingBuffer* rb);
-void calc_average(RingBuffer *buff);
 void rb_peek(RingBuffer* rb);
 
 #endif

@@ -4,6 +4,11 @@
     File         : circular_buffer2.c
     Reference    : http://codereview.stackexchange.com/questions/16468/circular-ringbuffer
     Description  : Ring buffer.
+                   
+		   +------+------+------+------+
+		   |      |      |      |      |
+		   |      |      |      |      |
+		   +------+------+------+------+
 */ 
  
 #include <stdio.h>
@@ -66,6 +71,7 @@ bool rb_push(RingBuffer* rb, int data)
     return true;
 }
 
+
 int rb_pop(RingBuffer* rb)
 {
     if (rb == NULL || rb->buffer == NULL)
@@ -89,6 +95,7 @@ int rb_pop(RingBuffer* rb)
     return data;
 }
 
+
 void rb_peek(RingBuffer* rb)
 {
     int *start;
@@ -98,6 +105,11 @@ void rb_peek(RingBuffer* rb)
  
     start = rb->data_start;
     end = rb->data_end;
+
+    printf("data_start:%p, data_end:%p, buffer_end:%p, last:%p\n", rb->data_start, rb->data_end, rb->buffer_end, rb->last);
+    printf("data_end:%d, last:%d\n", *rb->data_end, *rb->last);
+    float slope = (*rb->last - *rb->data_end) / 4.0;
+    printf("slope:%.2f\n", slope);
 
     for (int i=0; i<WINDOW_SIZE; i++)
     {
