@@ -28,9 +28,17 @@ void init_fill(RingBuffer *b)
 }
 
 
+void print_usage()
+{
+    printf("./rb -s <1-3>\n");
+    printf("  1 - ramp_samples\n");
+    printf("  2 - counter_samples\n");
+    printf("  3 - power2_samples\n");
+}
+
+
 void read_indata(int sel)
 {
-    printf("sellekjek:%d\n", sel);
     if(sel == 1)
     {
 	printf("ramp_samples opened\n");
@@ -74,9 +82,12 @@ int main(int argc, char *argv[])
     int option = 0;
     int selectFile = 1;
 
-    while ((option = getopt(argc, argv,"s:")) != -1) {
+    while ((option = getopt(argc, argv,"s:h")) != -1) {
         switch (option) {
              case 's' : selectFile = atoi(optarg);
+                        break;
+             case 'h' : print_usage();
+	                exit(1);
                         break;
              default: selectFile = 0; 
                  exit(EXIT_FAILURE);
