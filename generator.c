@@ -66,7 +66,8 @@ float* ramp_array(Generator *gen)
 	float part;
 	float maxValue = 10;
 	float minValue = 3;
-	int idx1;
+	int   rampStartValue = 40;
+	int   idx1;
 
         float *ar = (float *)malloc(sizeof(float) * gen->noSamples);    
 
@@ -74,7 +75,7 @@ float* ramp_array(Generator *gen)
 
 	//print_header(fp, gen);
 
-        for (int i=0; i<40; i++)
+        for (int i=0; i<rampStartValue; i++)
 	{
             noise = rand_interval(gen->minNoise, gen->maxNoise);
 	    fprintf(fp, "%.4f\n", minValue); //+ noise);
@@ -84,16 +85,16 @@ float* ramp_array(Generator *gen)
 	switch(gen->slope)
 	{
 	    case 1: idx1 = (int)(0.05*(float)gen->noSamples);
-	            part = 0.05;
+	            part = 0.05; // 5%
 		    break;
 	    case 2: idx1 = (int)(0.25*(float)gen->noSamples);
-	            part = 0.25;
+	            part = 0.25; // 25%
 		    break;
 	    case 3: idx1 = (int)(0.50*(float)gen->noSamples);
-	            part = 0.50;
+	            part = 0.50; // 50%
 		    break;
 	    case 4: idx1 = (int)(0.75*(float)gen->noSamples);
-	            part = 0.75;
+	            part = 0.75; // 75%
 		    break;
             default: idx1 = 200;
 	             part = 0.05;
