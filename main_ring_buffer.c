@@ -1,3 +1,11 @@
+/*
+    Auther       : Heinz Samuelsson
+    Date         : 2017-03-03
+    File         : main_ring_buffer.c
+    Reference    : -
+    Description  : -
+*/ 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -106,12 +114,12 @@ int main(int argc, char *argv[])
 
     // initialize the first part of the buffer
     init_fill(&myBuff);
-    rb_peek(&myBuff);
+    rb_peek(&myBuff, WINDOW_SIZE);
 
     for (int i=0; i<200; i++)
     {
         rb_push(&myBuff, ramp_indata[i+WINDOW_SIZE]);
-        rb_peek(&myBuff);
+        rb_peek(&myBuff, WINDOW_SIZE);
     }
 
     rb_free(&myBuff);

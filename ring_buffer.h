@@ -32,7 +32,7 @@ bool rb_full(RingBuffer* rb);
 
 float  rb_first(RingBuffer* rb);
 float  rb_last(RingBuffer* rb);
-void rb_peek(RingBuffer* rb);
+void rb_peek(RingBuffer* rb, int windowSize);
 
 void close_fp(void);
 

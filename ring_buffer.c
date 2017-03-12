@@ -103,7 +103,7 @@ float rb_pop(RingBuffer* rb)
 }
 
 
-void rb_peek(RingBuffer* rb)
+void rb_peek(RingBuffer* rb, int windowSize)
 {
     float *start;
     float *end;
@@ -116,11 +116,11 @@ void rb_peek(RingBuffer* rb)
     printf("data_end:%.4f, last:%.4f\n", *rb->data_end, *rb->last);
 
     // calculate slope collected in the window
-    float slope = (*rb->last - *rb->data_end) / (float)WINDOW_SIZE;
+    float slope = (*rb->last - *rb->data_end) / (float)windowSize;
     printf("  --> slope:%.4f <--\n", slope);
     fprintf(fp, "%.4f\n", slope);
 
-    for (int i=0; i<WINDOW_SIZE; i++)
+    for (int i=0; i<windowSize; i++)
     {
         data = *start;
 	average_data = average_data + data;
@@ -137,7 +137,7 @@ void rb_peek(RingBuffer* rb)
 
     loopCounter++;
 
-    printf("%s() - average_data:%.2f\n", __func__, average_data/(float)WINDOW_SIZE);
+    printf("%s() - average_data:%.2f\n", __func__, average_data/(float)windowSize);
     printf("\n");
 }
 

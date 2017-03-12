@@ -37,6 +37,7 @@ void print_usage()
     printf("t - ramp slope type <1-4>\n");
 }
 
+
 void print_configuration(Generator *g)
 {
     printf(" Number of samples: %d\n", g->noSamples);
@@ -49,6 +50,7 @@ void print_configuration(Generator *g)
     printf(" Window size: %d\n", g->windowSize);
     printf(" Slope type: %d\n", g->slope);
 }
+
 
 void print_header1(char* s)
 {
@@ -179,8 +181,6 @@ int main(int argc, char *argv[])
         printf("                \n");
         simple_filter(array, &generator);
     }
-
-
 
     free(array);
  
