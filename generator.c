@@ -61,11 +61,10 @@ void print_header(FILE *fp, Generator *gen)
 float* ramp_array(Generator *gen)
 {
         FILE *fp;
-	float val;
+	float yVal;
 	float noise = 0.0;
+	float part;
 	int idx1;
-	int idx2;
-	float div;
 
         float *ar = (float *)malloc(sizeof(float) * gen->noSamples);    
 
@@ -82,37 +81,33 @@ float* ramp_array(Generator *gen)
 
 	switch(gen->slope)
 	{
-	    case 1: idx1 = 50;
-	            div = 10.0;
-		    idx2 = 50;
+	    case 1: idx1 = (int)(0.05*(float)gen->noSamples);
+	            part = 0.05;
 		    break;
-	    case 2: idx1 = 100;
-	            div = 60.0;
-		    idx2 = 100;
+	    case 2: idx1 = (int)(0.25*(float)gen->noSamples);
+	            part = 0.25;
 		    break;
-	    case 3: idx1 = 150;
-	            div = 110.0;
-		    idx2 = 150;
+	    case 3: idx1 = (int)(0.50*(float)gen->noSamples);
+	            part = 0.50;
 		    break;
-	    case 4: idx1 = 200;
-	            div = 160.0;
-		    idx2 = 200;
+	    case 4: idx1 = (int)(0.75*(float)gen->noSamples);
+	            part = 0.75;
 		    break;
             default: idx1 = 200;
-	             div = 160.0;
-		     idx2 = 200;
+	             part = 0.05;
 		     break;
 	}
 
-        for (int i=40; i<idx1; i++)
+        for (int i=0; i<idx1; i++)
 	{
-	    val = 7.0/div * (i-40) + 3.0;
+            float k = 7.0/(part*gen->noSamples);
+	    yVal = k*i + 3.0;
             noise = rand_interval(gen->minNoise, gen->maxNoise);
-	    fprintf(fp, "%.4f\n", val); // + noise);
-	    ar[i] = val;// + noise;
+	    fprintf(fp, "%.4f\n", yVal);
+	    ar[i] = yVal;// + noise;
 	}
 
-        for (int i=idx2; i<gen->noSamples; i++)
+        for (int i=idx1+1; i<gen->noSamples; i++)
 	{
             noise = rand_interval(gen->minNoise, gen->maxNoise);
 	    fprintf(fp, "%.4f\n", 10.0); // + noise);
