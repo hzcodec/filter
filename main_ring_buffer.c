@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <getopt.h>
+#include "main_ring_buffer.h"
 #include "ring_buffer.h"
 
 #define LOCAL_BUFFER_SIZE 10 
