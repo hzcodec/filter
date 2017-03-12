@@ -14,9 +14,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <getopt.h>
 #include "ring_buffer.h" 
 
 static FILE *fp;
+static int loopCounter = 0;
 
 void rb_init(RingBuffer* rb, int size)
 {
@@ -110,18 +112,18 @@ void rb_peek(RingBuffer* rb)
     start = rb->data_start;
     end = rb->data_end;
 
-    printf("data_end:%.2f, last:%.2f\n", *rb->data_end, *rb->last);
+    printf("data_end:%.4f, last:%.4f\n", *rb->data_end, *rb->last);
 
     // calculate slope collected in the window
     float slope = (*rb->last - *rb->data_end) / (float)WINDOW_SIZE;
-    printf("  --> slope:%.2f <--\n", slope);
+    printf("  --> slope:%.4f <--\n", slope);
     fprintf(fp, "%.4f\n", slope);
 
     for (int i=0; i<WINDOW_SIZE; i++)
     {
         data = *start;
 	average_data = average_data + data;
-        printf("%s() - start:%p, end: %p, data:%.2f\n", __func__, start, end, data);
+        printf("%s() - start:%p, end: %p, data:%.2f, cnt:%d\n", __func__, start, end, data, loopCounter);
         start++;
 
         if (start == rb->buffer_end)
@@ -130,8 +132,10 @@ void rb_peek(RingBuffer* rb)
         }
 
     rb->count--;
-
     }
+
+    loopCounter++;
+
     printf("%s() - average_data:%.2f\n", __func__, average_data/(float)WINDOW_SIZE);
     printf("\n");
 }
