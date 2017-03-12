@@ -34,6 +34,7 @@ void rb_init(RingBuffer* rb, int size)
     fp = fopen("slope.txt", "w");
 }
 
+
 void rb_free(RingBuffer* rb)
 {
     free(rb->buffer);
@@ -160,6 +161,7 @@ bool rb_full(RingBuffer* rb)
 {
     return rb->count == rb->size;
 }
+
 
 void close_fp(void)
 {
