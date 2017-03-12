@@ -24,6 +24,7 @@ void print_usage()
     printf("q => generate square\n");
     printf("r => generate ramp\n");
     printf("c => generate counter\n");
+    printf("p => generate squares\n");
     printf("n - number of samples\n");
     printf("a - amplitude\n");
     printf("k - minimum noise level\n");
@@ -79,7 +80,7 @@ int main(int argc, char *argv[])
     int filt = 0;   // select average calc or filtering
     int simple_filt = 0;   // select simple filtering
 
-    while ((option = getopt(argc, argv,"sqrcn:a:e:k:l:w:vfgo:t:h")) != -1) {
+    while ((option = getopt(argc, argv,"sqrcpn:a:e:k:l:w:vfgo:t:h")) != -1) {
         switch (option) {
              case 's' : select = 1;
                         break;
@@ -88,6 +89,8 @@ int main(int argc, char *argv[])
              case 'r' : select = 3;
                         break;
              case 'c' : select = 4;
+                        break;
+             case 'p' : select = 5;
                         break;
              case 'n' : generator.noSamples = atoi(optarg);
                         break;
@@ -146,6 +149,11 @@ int main(int argc, char *argv[])
     {
 	print_header1("     Generate Counter\n");
         array = counter_array(&generator);
+    }
+    else if (select == 5)
+    {
+	print_header1("     Generate Squares\n");
+        array = power_of_2(&generator);
     }
 
     print_configuration(&generator);

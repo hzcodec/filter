@@ -222,3 +222,24 @@ float* square_array(Generator *gen)
 	fclose(fp);
         return ar;
 }
+
+
+float* power_of_2(Generator *gen)
+{
+        FILE *fp;
+	float counter = 1.0;
+
+        fp = fopen("power2_samples.txt", "w");
+        
+        float *ar = (float *)malloc(sizeof(float) * gen->noSamples);    
+
+        for (int i=0; i<gen->noSamples; i++)
+        {
+            fprintf(fp, "%.4f\n", (float)(i*i));
+            ar[i] = counter;
+        }
+
+	fclose(fp);
+
+        return ar;
+}

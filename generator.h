@@ -17,5 +17,6 @@ float* sinus_array(Generator *gen);
 float* square_array(Generator *gen);
 float* ramp_array(Generator *gen);
 float* counter_array(Generator *gen);
+float* power_of_2(Generator *gen);
 
 #endif

@@ -28,8 +28,9 @@ void init_fill(RingBuffer *b)
 }
 
 
-void read_rampdata(int sel)
+void read_indata(int sel)
 {
+    printf("sellekjek:%d\n", sel);
     if(sel == 1)
     {
 	printf("ramp_samples opened\n");
@@ -39,6 +40,11 @@ void read_rampdata(int sel)
     {
 	printf("counter_samples opened\n");
         fp = fopen("counter_samples.txt", "r");
+    }
+    else if(sel == 3)
+    {
+	printf("power2_samples opened\n");
+        fp = fopen("power2_samples.txt", "r");
     }
     else
     {
@@ -82,16 +88,17 @@ int main(int argc, char *argv[])
     printf("*****************************************************************\n");
     
     // read input data to ring buffer
-    read_rampdata(selectFile);
+    read_indata(selectFile);
 
+    // setup ring buffer
     rb_init(&myBuff, WINDOW_SIZE);
 
+    // initialize the first part of the buffer
     init_fill(&myBuff);
     rb_peek(&myBuff);
 
     for (int i=0; i<200; i++)
     {
-        ///rb_push(&myBuff, outdata[i+4]);
         rb_push(&myBuff, ramp_indata[i+WINDOW_SIZE]);
         rb_peek(&myBuff);
     }
