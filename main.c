@@ -35,11 +35,14 @@ void print_usage()
     printf("  k - minimum noise level (sinus / ramp)\n");
     printf("  l - maximum noise level (sinus / ramp)\n");
     printf("  w - window size\n");
-    printf("  v - calculate average\n");
+    printf("  o - ratio (square)\n");
+    printf("  t - ramp slope type <1-4>\n");
+    printf("===========================================\n");
+    printf("Select filtering type\n");
+    printf(".....................\n");
+    printf("  v - perform average calculation\n");
     printf("  f - perform filtering\n");
     printf("  g - perform simple filtering\n");
-    printf("  o - ratio for square wave\n");
-    printf("  t - ramp slope type <1-4>\n");
 }
 
 
