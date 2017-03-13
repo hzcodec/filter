@@ -24,4 +24,3 @@ title('alpha = 0.001')
 grid(True)
 show()
 
-
