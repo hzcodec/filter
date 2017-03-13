@@ -25,18 +25,19 @@ void print_usage()
     printf("  s => generate sinus\n");
     printf("  q => generate square\n");
     printf("  r => generate ramp\n");
-    printf("  c => generate counter\n");
-    printf("  p => generate squares\n");
+    printf("  c => generate counter numbers\n");
+    printf("  p => generate square numbers\n");
     printf("===========================================\n");
     printf("Change properties of the generated signal\n");
     printf(".........................................\n");
-    printf("  n - number of samples\n");
-    printf("  a - amplitude (sinus / square)\n");
-    printf("  k - minimum noise level (sinus / ramp)\n");
-    printf("  l - maximum noise level (sinus / ramp)\n");
-    printf("  w - window size\n");
+    printf("  n - number of samples [0 - 16384]\n");
+    printf("  a - amplitude [0.0 - user def] (sinus / square)\n");
+    printf("  e - enable noise [0/1]\n");
+    printf("  k - minimum noise level [0.0 - 5.0] (sinus / ramp)\n");
+    printf("  l - maximum noise level [0.0 - 5.0] (sinus / ramp)\n");
+    printf("  w - window size [1 - 8192] ]\n");
     printf("  o - ratio (square)\n");
-    printf("  t - ramp slope type <1-4>\n");
+    printf("  t - ramp slope type [1-4]\n");
     printf("===========================================\n");
     printf("Select filtering type\n");
     printf(".....................\n");
@@ -50,15 +51,15 @@ void print_usage()
 void print_configuration(Generator *g)
 {
     printf(" Number of samples: %d\n", g->noSamples);
-    printf(" Amplitude: %.2f\n", g->amplitude);
+    printf(" Amplitude: %.4f\n", g->amplitude);
     printf(" Enable noise: %d\n", g->enableNoise);
-    printf(" Min noise: %.2f\n", g->minNoise);
-    printf(" Max noise: %.2f\n", g->maxNoise);
-    printf(" Scale factor: %.2f\n", g->scaleFactor);
+    printf(" Min noise: %.4f\n", g->minNoise);
+    printf(" Max noise: %.4f\n", g->maxNoise);
+    printf(" Scale factor: %.4f\n", g->scaleFactor);
     printf(" Ratio: %d\n", g->ratio);
     printf(" Window size: %d\n", g->windowSize);
     printf(" Ramp slope type: %d\n", g->slope);
-    printf(" Alpha value: %.2f\n", g->alpha);
+    printf(" Alpha value: %.4f\n", g->alpha);
 }
 
 
@@ -183,14 +184,14 @@ int main(int argc, char *argv[])
     else if (filt == 1 && simple_filt == 0)
     {
         printf("                \n");
-        printf(" Perform filtering\n");
+        printf(" Filtering performed\n");
         printf("                \n");
         filter(array, &generator);
     }
     else if (simple_filt == 1)
     {
         printf("                \n");
-        printf(" Perform simple filtering\n");
+        printf(" Simple filtering performed\n");
         printf("                \n");
         simple_filter(array, &generator);
     }
