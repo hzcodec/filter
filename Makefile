@@ -15,3 +15,6 @@ m2: main_ring_buffer.c
 
 clean:
 	rm -f a.out *.txt *.o gen rb logfiles/*.txt
+
+flush:
+	rm -f logfiles/*.txt
