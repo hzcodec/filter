@@ -77,8 +77,11 @@ float* ramp_array(Generator *gen)
 
         for (int i=0; i<rampStartValue; i++)
 	{
-            noise = rand_interval(gen->minNoise, gen->maxNoise);
-	    fprintf(fp, "%.4f\n", minValue); //+ noise);
+	    if (gen->enableNoise == true)
+	    {
+                noise = rand_interval(gen->minNoise, gen->maxNoise);
+	    }
+	    fprintf(fp, "%.4f\n", minValue + noise);
 	    ar[i] = minValue + noise;
 	}
 
@@ -105,16 +108,22 @@ float* ramp_array(Generator *gen)
 	{
             float k = (maxValue-minValue)/(part*gen->noSamples);
 	    yVal = k*i + minValue;
-            noise = rand_interval(gen->minNoise, gen->maxNoise);
-	    fprintf(fp, "%.4f\n", yVal);
-	    ar[i] = yVal;// + noise;
+	    if (gen->enableNoise == true)
+	    {
+                noise = rand_interval(gen->minNoise, gen->maxNoise);
+	    }
+	    fprintf(fp, "%.4f\n", yVal + noise);
+	    ar[i] = yVal + noise;
 	}
 
         for (int i=idx1+1; i<gen->noSamples; i++)
 	{
-            noise = rand_interval(gen->minNoise, gen->maxNoise);
-	    fprintf(fp, "%.4f\n", maxValue); // + noise);
-	    ar[i] = maxValue;// + noise;
+	    if (gen->enableNoise == true)
+	    {
+                noise = rand_interval(gen->minNoise, gen->maxNoise);
+	    }
+	    fprintf(fp, "%.4f\n", maxValue + noise);
+	    ar[i] = maxValue + noise;
 	}
 
 	fclose(fp);
