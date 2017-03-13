@@ -18,7 +18,7 @@ static float last = 0.0;
 void filter(float *ar, Generator *gen)
 {
         FILE *fp;
-        fp = fopen("filter.txt", "w");
+        fp = fopen("logfiles/filter.txt", "w");
 
         for(int n=0; n<gen->noSamples; n++)
         {
@@ -37,7 +37,7 @@ void filter(float *ar, Generator *gen)
 void simple_filter(float *ar, Generator *gen)
 {
         FILE *fp;
-        fp = fopen("simple_filter.txt", "w");
+        fp = fopen("logfiles/simple_filter.txt", "w");
 
 	float out_new;
 	float out_old;

@@ -14,4 +14,4 @@ m2: main_ring_buffer.c
 	gcc  main_ring_buffer.o ring_buffer.o -o rb
 
 clean:
-	rm -f a.out *.txt *.o gen rb
+	rm -f a.out *.txt *.o gen rb logfiles/*.txt

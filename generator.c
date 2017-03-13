@@ -71,7 +71,7 @@ float* ramp_array(Generator *gen)
 
         float *ar = (float *)malloc(sizeof(float) * gen->noSamples);    
 
-        fp = fopen("ramp_samples.txt", "w");
+        fp = fopen("logfiles/ramp_samples.txt", "w");
 
 	//print_header(fp, gen);
 
@@ -137,7 +137,7 @@ float* sinus_array(Generator *gen)
         FILE *fp;
 	float noise = 0.0;
 
-        fp = fopen("sinus_samples.txt", "w");
+        fp = fopen("logfiles/sinus_samples.txt", "w");
         
         float deg = 0.0;
         float rad = 0.0;
@@ -175,7 +175,7 @@ float* counter_array(Generator *gen)
         FILE *fp;
 	float counter = 1.0;
 
-        fp = fopen("counter_samples.txt", "w");
+        fp = fopen("logfiles/counter_samples.txt", "w");
         
         float *ar = (float *)malloc(sizeof(float) * gen->noSamples);    
 
@@ -197,7 +197,7 @@ float* square_array(Generator *gen)
 	float noise = 0.0;
 	float out;
 
-        fp = fopen("square_samples.txt", "w");
+        fp = fopen("logfiles/square_samples.txt", "w");
         float *ar = (float *)malloc(sizeof(float) * (float)gen->noSamples);    
 	float dist = (float)gen->ratio/100.0 * (float)gen->noSamples;
 	float start = (float)gen->noSamples/2.0 - dist/2.0;
@@ -227,7 +227,7 @@ float* square_array(Generator *gen)
 	}
 
 	out = 0.0;
-	for (int i=stop+1; i<((int)gen->noSamples); i++)
+	for (int i=stop+1; i<((int)gen->noSamples+2); i++)
 	{
 	    if (gen->enableNoise == true)
 	    {
@@ -247,7 +247,7 @@ float* power_of_2(Generator *gen)
         FILE *fp;
 	float counter = 1.0;
 
-        fp = fopen("power2_samples.txt", "w");
+        fp = fopen("logfiles/power2_samples.txt", "w");
         
         float *ar = (float *)malloc(sizeof(float) * gen->noSamples);    
 
