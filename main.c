@@ -43,6 +43,7 @@ void print_usage()
     printf("  v - perform average calculation\n");
     printf("  f - perform filtering\n");
     printf("  g - perform simple filtering\n");
+    printf("  y - alpha value for LP filter\n");
 }
 
 
@@ -57,6 +58,7 @@ void print_configuration(Generator *g)
     printf(" Ratio: %d\n", g->ratio);
     printf(" Window size: %d\n", g->windowSize);
     printf(" Ramp slope type: %d\n", g->slope);
+    printf(" Alpha value: %.2f\n", g->alpha);
 }
 
 
@@ -76,6 +78,7 @@ int main(int argc, char *argv[])
     Generator generator = {
                            256,    // number of samples
                            1.0,    // amplitude scale factor
+			   0.1,    // alpha value
 			   false,  // enable noise
 			   0.1,    // min noise level
 			   0.3,    // max noise level
@@ -90,7 +93,7 @@ int main(int argc, char *argv[])
     int filt = 0;   // select average calc or filtering
     int simple_filt = 0;   // select simple filtering
 
-    while ((option = getopt(argc, argv,"sqrcpn:a:e:k:l:w:vfgo:t:h")) != -1) {
+    while ((option = getopt(argc, argv,"sqrcpn:a:e:k:l:w:vfgo:t:y:h")) != -1) {
         switch (option) {
              case 's' : select = 1;
                         break;
@@ -131,6 +134,8 @@ int main(int argc, char *argv[])
 			{
 	                    generator.slope = atoi(optarg);
 			}
+                        break;
+             case 'y' : generator.alpha = atof(optarg); 
                         break;
              case 'h' : print_usage();
 	                exit(1);

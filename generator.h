@@ -4,6 +4,7 @@
 typedef struct {
     int   noSamples;    // number of samples
     float amplitude;    // amplitude scale factor
+    float alpha;        // alpha value for low pass filter
     bool  enableNoise;  // enable noise;
     float minNoise;     // min noise level
     float maxNoise;     // max noise level

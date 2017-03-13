@@ -23,7 +23,7 @@ void filter(float *ar, Generator *gen)
         for(int n=0; n<gen->noSamples; n++)
         {
                 new = ar[n];
-                new = last + 0.1*(new - last);
+                new = last + gen->alpha*(new - last);
 
                 fprintf(fp, "%.4f\n", new);
                 last = new;
@@ -33,6 +33,7 @@ void filter(float *ar, Generator *gen)
 }
 
 
+// this is the same as above, just slightly another implementation
 void simple_filter(float *ar, Generator *gen)
 {
         FILE *fp;
