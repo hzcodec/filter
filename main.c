@@ -55,7 +55,7 @@ void print_configuration(Generator *g)
     printf(" Enable noise: %d\n", g->enableNoise);
     printf(" Min noise: %.4f\n", g->minNoise);
     printf(" Max noise: %.4f\n", g->maxNoise);
-    printf(" Scale factor: %.4f\n", g->scaleFactor);
+    printf(" Noise scale factor: %.4f\n", g->scaleFactor);
     printf(" Ratio: %d\n", g->ratio);
     printf(" Window size: %d\n", g->windowSize);
     printf(" Ramp slope type: %d\n", g->slope);
@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
 			   false,  // enable noise
 			   0.1,    // min noise level
 			   0.3,    // max noise level
-			   10.0,   // scale factor of noise level
+			   2.0,   // scale factor of noise level
 			   20,     // square wave ratio
 			   30,     // window size
 			   1,      // slope
