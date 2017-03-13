@@ -70,10 +70,7 @@ float* ramp_array(Generator *gen)
 	int   idx1;
 
         float *ar = (float *)malloc(sizeof(float) * gen->noSamples);    
-
         fp = fopen("logfiles/ramp_samples.txt", "w");
-
-	//print_header(fp, gen);
 
         for (int i=0; i<rampStartValue; i++)
 	{
@@ -104,10 +101,10 @@ float* ramp_array(Generator *gen)
 		     break;
 	}
 
-        for (int i=0; i<idx1; i++)
+        for (int i=rampStartValue; i<rampStartValue+idx1; i++)
 	{
-            float k = (maxValue-minValue)/(part*gen->noSamples);
-	    yVal = k*i + minValue;
+            float k = (maxValue-minValue)/(float)((rampStartValue+idx1) - rampStartValue);
+	    yVal = k*(i-rampStartValue) + minValue;
 	    if (gen->enableNoise == true)
 	    {
                 noise = rand_interval(gen->minNoise, gen->maxNoise);
@@ -116,7 +113,7 @@ float* ramp_array(Generator *gen)
 	    ar[i] = yVal + noise;
 	}
 
-        for (int i=idx1+1; i<gen->noSamples; i++)
+        for (int i=rampStartValue+idx1; i<gen->noSamples; i++)
 	{
 	    if (gen->enableNoise == true)
 	    {
