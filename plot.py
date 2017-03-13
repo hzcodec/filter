@@ -2,8 +2,8 @@
 
 from pylab import *
 
-lines1 = [line.rstrip('\n') for line in open('logfiles/ramp_samples.txt')]
-num_lines = sum(1 for line in open('logfiles/ramp_samples.txt'))
+lines1 = [line.rstrip('\n') for line in open('logfiles/square_samples.txt')]
+num_lines = sum(1 for line in open('logfiles/square_samples.txt'))
 
 lines2 = [line.rstrip('\n') for line in open('logfiles/filter.txt')]
 #lines3 = [line.rstrip('\n') for line in open('logfiles/filter.txt')]
