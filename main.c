@@ -20,21 +20,26 @@
 
 void print_usage()
 {
-    printf("s => generate sinus\n");
-    printf("q => generate square\n");
-    printf("r => generate ramp\n");
-    printf("c => generate counter\n");
-    printf("p => generate squares\n");
-    printf("n - number of samples\n");
-    printf("a - amplitude\n");
-    printf("k - minimum noise level\n");
-    printf("l - maximum noise level\n");
-    printf("w - window size\n");
-    printf("v - calculate average\n");
-    printf("f - perform filtering\n");
-    printf("g - perform simple filtering\n");
-    printf("o - ratio for square wave\n");
-    printf("t - ramp slope type <1-4>\n");
+    printf("Select type of signal to generate\n");
+    printf(".................................\n");
+    printf("  s => generate sinus\n");
+    printf("  q => generate square\n");
+    printf("  r => generate ramp\n");
+    printf("  c => generate counter\n");
+    printf("  p => generate squares\n");
+    printf("===========================================\n");
+    printf("Change properties of the generated signal\n");
+    printf(".........................................\n");
+    printf("  n - number of samples\n");
+    printf("  a - amplitude (sinus / square)\n");
+    printf("  k - minimum noise level (sinus / ramp)\n");
+    printf("  l - maximum noise level (sinus / ramp)\n");
+    printf("  w - window size\n");
+    printf("  v - calculate average\n");
+    printf("  f - perform filtering\n");
+    printf("  g - perform simple filtering\n");
+    printf("  o - ratio for square wave\n");
+    printf("  t - ramp slope type <1-4>\n");
 }
 
 
@@ -48,7 +53,7 @@ void print_configuration(Generator *g)
     printf(" Scale factor: %.2f\n", g->scaleFactor);
     printf(" Ratio: %d\n", g->ratio);
     printf(" Window size: %d\n", g->windowSize);
-    printf(" Slope type: %d\n", g->slope);
+    printf(" Ramp slope type: %d\n", g->slope);
 }
 
 
