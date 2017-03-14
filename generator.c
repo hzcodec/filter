@@ -47,11 +47,12 @@ float gen_noise(Generator *gen)
 void print_header(FILE *fp, Generator *gen)
 {
         fprintf(fp, "noSamples: %d\n", gen->noSamples); 
-        fprintf(fp, "amplitude: %.2f\n", gen->amplitude);
+        fprintf(fp, "amplitude: %.4f\n", gen->amplitude);
+        fprintf(fp, "alpha: %.4f\n", gen->alpha);
         fprintf(fp, "enableNoise: %d\n", gen->enableNoise);
-        fprintf(fp, "minNoise: %.2f\n", gen->minNoise); 
-        fprintf(fp, "maxNoise: %.2f\n", gen->maxNoise);
-        fprintf(fp, "scaleFactor: %.2f\n", gen->scaleFactor);
+        fprintf(fp, "minNoise: %.4f\n", gen->minNoise); 
+        fprintf(fp, "maxNoise: %.4f\n", gen->maxNoise);
+        fprintf(fp, "scaleFactor: %.4f\n", gen->scaleFactor);
         fprintf(fp, "ratio: %d\n", gen->ratio);
         fprintf(fp, "windowSize: %d\n", gen->windowSize);
         fprintf(fp, "Slope: %d\n", gen->slope);
@@ -123,6 +124,8 @@ float* ramp_array(Generator *gen)
 	    ar[i] = maxValue + noise;
 	}
 
+	print_header(fp, gen);
+
 	fclose(fp);
 
 	return ar;
@@ -139,8 +142,6 @@ float* sinus_array(Generator *gen)
         float deg = 0.0;
         float rad = 0.0;
         float *ar = (float *)malloc(sizeof(float) * gen->noSamples);    
-
-	//print_header(fp, gen);
 
         for (int i=0; i<gen->noSamples; i++)
         {
@@ -160,6 +161,8 @@ float* sinus_array(Generator *gen)
                 fprintf(fp, "%.4f\n", rad);
                 ar[i] = rad;
         }
+
+	print_header(fp, gen);
 
 	fclose(fp);
 
@@ -182,6 +185,8 @@ float* counter_array(Generator *gen)
             ar[i] = counter;
         }
 
+	print_header(fp, gen);
+
 	fclose(fp);
 
         return ar;
@@ -192,15 +197,13 @@ float* square_array(Generator *gen)
 {
         FILE *fp;
 	float noise = 0.0;
-	float out;
+	float out = 0.0;
 
         fp = fopen("logfiles/square_samples.txt", "w");
         float *ar = (float *)malloc(sizeof(float) * (float)gen->noSamples);    
 	float dist = (float)gen->ratio/100.0 * (float)gen->noSamples;
 	float start = (float)gen->noSamples/2.0 - dist/2.0;
 	float stop = (float)gen->noSamples/2.0 + dist/2.0;
-
-	//print_header(fp, gen);
 
 	for (int i=0; i<((int)start); i++)
 	{
@@ -210,6 +213,7 @@ float* square_array(Generator *gen)
 	    }
             ar[i] = (out + noise) * gen->amplitude;
             fprintf(fp, "%.4f\n", (out + noise) * gen->amplitude);
+	    //printf("ar[%d]:%.4f\n", i, ar[i]);
 	}
 
 	out = 1.0;
@@ -234,6 +238,8 @@ float* square_array(Generator *gen)
             fprintf(fp, "%.4f\n", (out + noise) * gen->amplitude);
 	}
 
+	print_header(fp, gen);
+
 	fclose(fp);
         return ar;
 }
@@ -253,6 +259,8 @@ float* power_of_2(Generator *gen)
             fprintf(fp, "%.4f\n", (float)(i*i));
             ar[i] = counter;
         }
+
+	print_header(fp, gen);
 
 	fclose(fp);
 

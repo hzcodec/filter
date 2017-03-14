@@ -24,6 +24,7 @@ void filter(float *ar, Generator *gen)
         {
                 new = ar[n];
                 new = last + gen->alpha*(new - last);
+		//printf("ar[%d]:%.4f, new:%.4f, last:%.4f, diff:%.4f\n", n, ar[n], new, last, (new-last));
 
                 fprintf(fp, "%.4f\n", new);
                 last = new;
