@@ -11,7 +11,6 @@ lines2 = [line.rstrip('\n') for line in open('logfiles/filter.txt')]
 t = arange(0, num_lines, 1)
 
 totTime = num_lines * 83.0 / 1000.0
-print totTime
 
 plot(t, lines1)
 plot(t, lines2)
