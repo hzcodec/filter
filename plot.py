@@ -3,7 +3,7 @@ from pylab import *
 
 NUMBER_OF_FIELDS = 10
 ALPHA_POS = 8
-SAMPLING_TIME = 83.0
+SAMPLING_TIME = 83.0 # us
 
 data = []
 
