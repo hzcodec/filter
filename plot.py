@@ -12,8 +12,6 @@ lines2 = [line.rstrip('\n') for line in open('logfiles/filter.txt')]
 t = arange(0, num_lines-NUMBER_OF_FIELDS, 1)
 
 totTime = (num_lines-NUMBER_OF_FIELDS) * 83.0 / 1000.0
-print num_lines
-print totTime
 
 # just make a copy of the list
 data = lines1[0:num_lines-NUMBER_OF_FIELDS]
