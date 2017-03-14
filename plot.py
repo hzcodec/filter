@@ -3,6 +3,8 @@ from pylab import *
 
 NUMBER_OF_FIELDS = 10
 ALPHA_POS = 8
+SAMPLING_TIME = 83.0
+
 data = []
 
 lines1 = [line.rstrip('\n') for line in open('logfiles/square_samples.txt')]
@@ -11,7 +13,8 @@ lines2 = [line.rstrip('\n') for line in open('logfiles/filter.txt')]
 
 t = arange(0, num_lines-NUMBER_OF_FIELDS, 1)
 
-totTime = (num_lines-NUMBER_OF_FIELDS) * 83.0 / 1000.0
+# calculate total time and convert to ms
+totTime = (num_lines-NUMBER_OF_FIELDS) * SAMPLING_TIME / 1000.0
 
 # just make a copy of the list
 data = lines1[0:num_lines-NUMBER_OF_FIELDS]
