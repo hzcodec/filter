@@ -78,12 +78,12 @@ int main(int argc, char *argv[])
     // default values
     Generator generator = {
                            256,    // number of samples
-                           1.0,    // amplitude scale factor
+                           10.0,   // amplitude value
 			   0.1,    // alpha value
 			   false,  // enable noise
 			   0.1,    // min noise level
 			   0.3,    // max noise level
-			   2.0,   // scale factor of noise level
+			   2.0,    // scale factor of noise level
 			   20,     // square wave ratio
 			   30,     // window size
 			   1,      // slope

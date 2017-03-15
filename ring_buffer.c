@@ -87,7 +87,7 @@ float rb_pop(RingBuffer* rb)
     }
 
     float data = *rb->data_start;
-    printf("3.%s() - start:%p, end: %p, count:%d, data:%.2f\n\n", __func__, rb->data_start, rb->data_end, rb->count, data);
+    //printf("3.%s() - start:%p, end: %p, count:%d, data:%.2f\n\n", __func__, rb->data_start, rb->data_end, rb->count, data);
     rb->data_start++;
 
     if (rb->data_start == rb->buffer_end)
@@ -109,6 +109,7 @@ void rb_peek(RingBuffer* rb, int windowSize)
     float *end;
     float data;               // current sampled data within the window
     float average_data = 0.0; // calculated average data within the window
+    int dataCounter = 0;
  
     start = rb->data_start;
     end = rb->data_end;
@@ -116,7 +117,8 @@ void rb_peek(RingBuffer* rb, int windowSize)
     printf("data_end:%.4f, last:%.4f\n", *rb->data_end, *rb->last);
 
     // calculate slope collected in the window
-    float slope = (*rb->last - *rb->data_end) / (float)windowSize;
+    // HzS -  testing to skip divisor float slope = (*rb->last - *rb->data_end) / (float)windowSize;
+    float slope = (*rb->last - *rb->data_end);
     printf("  --> slope:%.4f <--\n", slope);
     fprintf(fp, "%.4f\n", slope);
 
@@ -124,7 +126,7 @@ void rb_peek(RingBuffer* rb, int windowSize)
     {
         data = *start;
 	average_data = average_data + data;
-        printf("%s() - start:%p, end: %p, data:%.2f, cnt:%d\n", __func__, start, end, data, loopCounter);
+        printf("%s() - start:%p, end: %p, data:%.2f, cnt:%d, [%d]\n", __func__, start, end, data, loopCounter, dataCounter);
         start++;
 
         if (start == rb->buffer_end)
@@ -132,7 +134,8 @@ void rb_peek(RingBuffer* rb, int windowSize)
             start = rb->buffer;
         }
 
-    rb->count--;
+	dataCounter++;
+        rb->count--;
     }
 
     loopCounter++;

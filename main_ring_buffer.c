@@ -14,32 +14,31 @@
 #include "ring_buffer.h"
 
 #define LOCAL_BUFFER_SIZE 10 
-#define RAMP_DATA_BUFFER 4095
+#define RAMP_DATA_BUFFER 4096
 
 static int indata[16] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
 static int outdata[16] = {1,4,9,16,25,36,49,64,81,100,121,144,169,196,225,256};
-//static float outdata[16] = {1.0,8.0,27.0,64.0,125.0,216.0,343.0,512.0,729.0,1000.0,1331.0,1728.0,2197.0,2744.0,3375.0,4096.0};
 float ramp_indata[RAMP_DATA_BUFFER];
 static FILE *fp;
 
 // initial fill the buffer
-void init_fill(RingBuffer *b)
+void init_fill(RingBuffer *b, int wz)
 {
     int cnt = 0;
 
-    for (int i=0; i<WINDOW_SIZE; i++)
+    for (int i=0; i<wz; i++)
     {
 	cnt++;
         //rb_push(b, outdata[i]);
         rb_push(b, ramp_indata[i]);
     }
-    printf("Buffer initial filled with <%d> numbers of data\n", cnt);
+    printf("Buffer initial filled with [%d] numbers of data, window size = %d \n", cnt, wz);
 }
 
 
 void print_usage()
 {
-    printf("./rb -s <1-3>\n");
+    printf("./rb -s <1-3> -b <size>\n");
     printf("  1 - ramp_samples\n");
     printf("  2 - counter_samples\n");
     printf("  3 - power2_samples\n");
@@ -78,7 +77,7 @@ void read_indata(int sel)
     for (int i=0; i<RAMP_DATA_BUFFER; i++)
     {
         fscanf(fp, "%f,",&ramp_indata[i]);
-	//printf("%s() - data[%d]:%.2f\n", __func__, i, ramp_indata[i]);
+	printf("%s() - data[%d]:%.2f\n", __func__, i, ramp_indata[i]);
     }
 
     fclose(fp);
@@ -90,10 +89,13 @@ int main(int argc, char *argv[])
     RingBuffer myBuff;
     int option = 0;
     int selectFile = 1;
+    int windowSize = 10;
 
-    while ((option = getopt(argc, argv,"s:h")) != -1) {
+    while ((option = getopt(argc, argv,"s:b:h")) != -1) {
         switch (option) {
              case 's' : selectFile = atoi(optarg);
+                        break;
+             case 'b' : windowSize = atoi(optarg);
                         break;
              case 'h' : print_usage();
 	                exit(1);
@@ -111,16 +113,16 @@ int main(int argc, char *argv[])
     read_indata(selectFile);
 
     // setup ring buffer
-    rb_init(&myBuff, WINDOW_SIZE);
+    rb_init(&myBuff, windowSize);
 
     // initialize the first part of the buffer
-    init_fill(&myBuff);
-    rb_peek(&myBuff, WINDOW_SIZE);
+    init_fill(&myBuff, windowSize);
+    rb_peek(&myBuff, windowSize);
 
-    for (int i=0; i<200; i++)
+    for (int i=0; i<3995; i++)
     {
-        rb_push(&myBuff, ramp_indata[i+WINDOW_SIZE]);
-        rb_peek(&myBuff, WINDOW_SIZE);
+        rb_push(&myBuff, ramp_indata[i+windowSize]);
+        rb_peek(&myBuff, windowSize);
     }
 
     rb_free(&myBuff);

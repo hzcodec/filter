@@ -23,23 +23,26 @@ except IndexError:
     sys.exit()
 
 if (sel == '1'):
+    print 'Square samples read\n'
     lines1 = [line.rstrip('\n') for line in open('logfiles/square_samples.txt')]
     num_lines = sum(1 for line in open('logfiles/square_samples.txt'))
 
 elif (sel == '2'):
+    print 'Ramp samples read\n'
     lines1 = [line.rstrip('\n') for line in open('logfiles/ramp_samples.txt')]
     num_lines = sum(1 for line in open('logfiles/ramp_samples.txt'))
 
 elif (sel == '3'):
+    print 'Slope samples read\n'
     lines1 = [line.rstrip('\n') for line in open('logfiles/slope.txt')]
     num_lines = sum(1 for line in open('logfiles/slope.txt'))
 
 
-try:
-    lines2 = [line.rstrip('\n') for line in open('logfiles/filter.txt')]
-except IOError:
-    print 'filter.txt not read'
-    skip = 1
+#try:
+#    lines2 = [line.rstrip('\n') for line in open('logfiles/filter.txt')]
+#except IOError:
+#    print 'filter.txt not read'
+#    skip = 1
 
 
 t = arange(0, num_lines-NUMBER_OF_FIELDS, 1)
@@ -56,10 +59,10 @@ ypos = 0.2 * float(max(data))
 # get input type string
 inputType = lines1[num_lines-NUMBER_OF_FIELDS]
 
-plot(t, data)
+plot(t, data, marker='o', linestyle='-.', color='b')
 
-if (skip == 0):
-    plot(t, lines2)
+#if (skip == 0):
+#    plot(t, lines2)
 
 fig = gcf()
 fig.canvas.set_window_title('Filter test')
