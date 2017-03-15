@@ -14,16 +14,14 @@
 #include "ring_buffer.h"
 
 #define LOCAL_BUFFER_SIZE 10 
-#define RAMP_DATA_BUFFER 64
+#define RAMP_DATA_BUFFER 12288
 
 static int indata[16] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
 static int outdata[16] = {1,4,9,16,25,36,49,64,81,100,121,144,169,196,225,256};
 float ramp_indata[RAMP_DATA_BUFFER];
 static FILE *fp;
 
-char dummy;
-char dummy2[30];
-char strNoOfSamples[10];
+char fileText[30];
 
 // initial fill the buffer
 void init_fill(RingBuffer *b, int wz)
@@ -78,36 +76,20 @@ void read_indata(int sel)
         exit(-1);
     }
 
-    
-    char *line = NULL;
-    ssize_t read;
-    size_t len = 0;
-    //https://www.rosettacode.org/wiki/Read_a_file_line_by_line#C
-
-    while ((read = getline(&line, &len, fp)) != -1) {
-       printf("Retrieved line of length %zu :\n", read);
-       printf("%s", line);
-    }
-    //fscanf(fp, "%c,", dummy); // get first
-    //printf("%s\n", dummy);
-    //fscanf(fp, "%s,", dummy2); // get first
-    //printf("%s\n", dummy2);
-    //fscanf(fp, "%s,", dummy); // get first
-    //printf("%s\n", dummy);
-    //fscanf(fp, "%s,", dummy); // get first
-    //printf("%s\n", dummy);
-    //fscanf(fp, "%s,", dummy); // get first
-    //printf("%s\n", dummy);
-    //fscanf(fp, "%s,", strNoOfSamples); // get first
-    //printf("%s\n", strNoOfSamples);
-    //int noOfSamples = atoi(strNoOfSamples);
-    int noOfSamples = 64;
-
-    for (int i=0; i<noOfSamples; i++)
+    for (int i=0; i<NUMBER_OF_FIELDS; i++)
     {
-        fscanf(fp, "%f,", &ramp_indata[i]);
-	printf("%s() - data[%d]:%.2f\n", __func__, i, ramp_indata[i]);
+        fgets(fileText, 30, fp);
+        printf("%s", fileText);
     }
+
+    int idx = 0;
+    while(fgets(fileText, 10, fp) != NULL)
+    {
+        //printf("%s\n",  fileText);
+	ramp_indata[idx] = atof(fileText);
+	idx++;
+    }
+    printf("%d indata read\n", idx);
 
     fclose(fp);
 }
