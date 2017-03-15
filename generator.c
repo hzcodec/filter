@@ -44,8 +44,9 @@ float gen_noise(Generator *gen)
 }
 
 
-void print_header(FILE *fp, Generator *gen)
+void print_header(FILE *fp, Generator *gen, char *s)
 {
+        fprintf(fp, "Input signal type: %s\n", s); 
         fprintf(fp, "noSamples: %d\n", gen->noSamples); 
         fprintf(fp, "amplitude: %.4f\n", gen->amplitude);
         fprintf(fp, "alpha: %.4f\n", gen->alpha);
@@ -124,7 +125,7 @@ float* ramp_array(Generator *gen)
 	    ar[i] = maxValue + noise;
 	}
 
-	print_header(fp, gen);
+	print_header(fp, gen, "Ramp");
 
 	fclose(fp);
 
@@ -162,7 +163,7 @@ float* sinus_array(Generator *gen)
                 ar[i] = rad;
         }
 
-	print_header(fp, gen);
+	print_header(fp, gen, "Sinus");
 
 	fclose(fp);
 
@@ -185,7 +186,7 @@ float* counter_array(Generator *gen)
             ar[i] = counter;
         }
 
-	print_header(fp, gen);
+	print_header(fp, gen, "Counter");
 
 	fclose(fp);
 
@@ -238,7 +239,7 @@ float* square_array(Generator *gen)
             fprintf(fp, "%.4f\n", (out + noise) * gen->amplitude);
 	}
 
-	print_header(fp, gen);
+	print_header(fp, gen, "Square");
 
 	fclose(fp);
         return ar;
@@ -260,7 +261,7 @@ float* power_of_2(Generator *gen)
             ar[i] = counter;
         }
 
-	print_header(fp, gen);
+	print_header(fp, gen, "Power of 2");
 
 	fclose(fp);
 
