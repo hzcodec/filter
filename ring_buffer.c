@@ -31,7 +31,7 @@ void rb_init(RingBuffer* rb, int size)
     rb->count = 0;
     printf("%s() - start:%p, end: %p, buffer_end:%p\n", __func__, rb->data_start, rb->data_end, rb->buffer_end);
 
-    fp = fopen("slope.txt", "w");
+    fp = fopen("logfiles/slope.txt", "w");
 }
 
 

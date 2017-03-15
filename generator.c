@@ -66,9 +66,8 @@ float* ramp_array(Generator *gen)
 	float yVal;
 	float noise = 0.0;
 	float part;
-	float maxValue = 10;
 	float minValue = 3;
-	int   rampStartValue = 40;
+	int   rampStartValue = 0.1 * gen->noSamples; // start condition 10% of max samples
 	int   idx1;
 
         float *ar = (float *)malloc(sizeof(float) * gen->noSamples);    
@@ -105,7 +104,7 @@ float* ramp_array(Generator *gen)
 
         for (int i=rampStartValue; i<rampStartValue+idx1; i++)
 	{
-            float k = (maxValue-minValue)/(float)((rampStartValue+idx1) - rampStartValue);
+            float k = (gen->amplitude-minValue)/(float)((rampStartValue+idx1) - rampStartValue);
 	    yVal = k*(i-rampStartValue) + minValue;
 	    if (gen->enableNoise == true)
 	    {
@@ -121,8 +120,8 @@ float* ramp_array(Generator *gen)
 	    {
                 noise = rand_interval(gen->minNoise, gen->maxNoise);
 	    }
-	    fprintf(fp, "%.4f\n", maxValue + noise);
-	    ar[i] = maxValue + noise;
+	    fprintf(fp, "%.4f\n", gen->amplitude + noise);
+	    ar[i] = gen->amplitude + noise;
 	}
 
 	print_header(fp, gen, "Ramp");

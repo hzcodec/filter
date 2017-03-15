@@ -32,12 +32,12 @@ void print_usage()
     printf(".........................................\n");
     printf("  n - number of samples [0 - 16384]\n");
     printf("  a - amplitude [0.0 - user def] (sinus / square)\n");
-    printf("  e - enable noise [0/1]\n");
-    printf("  k - minimum noise level [0.0 - 5.0] (sinus / ramp)\n");
-    printf("  l - maximum noise level [0.0 - 5.0] (sinus / ramp)\n");
-    printf("  w - window size [1 - 8192] ]\n");
+    printf("  e - enable noise [0/1] (sinus, square, ramp)\n");
+    printf("  k - minimum noise level [0.0 - user def] (sinus / ramp)\n");
+    printf("  l - maximum noise level [0.0 - user def] (sinus / ramp)\n");
+    printf("  w - window size [1 - 8192] (average calculation)\n");
     printf("  o - ratio (square)\n");
-    printf("  t - ramp slope type [1-4]\n");
+    printf("  t - slope type [1-4] (ramp)\n");
     printf("===========================================\n");
     printf("Select filtering type\n");
     printf(".....................\n");

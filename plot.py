@@ -13,6 +13,7 @@ font = {'family': 'monospace',
         }
 
 data = []
+skip = 0
 
 
 try:
@@ -29,8 +30,17 @@ elif (sel == '2'):
     lines1 = [line.rstrip('\n') for line in open('logfiles/ramp_samples.txt')]
     num_lines = sum(1 for line in open('logfiles/ramp_samples.txt'))
 
+elif (sel == '3'):
+    lines1 = [line.rstrip('\n') for line in open('logfiles/slope.txt')]
+    num_lines = sum(1 for line in open('logfiles/slope.txt'))
 
-lines2 = [line.rstrip('\n') for line in open('logfiles/filter.txt')]
+
+try:
+    lines2 = [line.rstrip('\n') for line in open('logfiles/filter.txt')]
+except IOError:
+    print 'filter.txt not read'
+    skip = 1
+
 
 t = arange(0, num_lines-NUMBER_OF_FIELDS, 1)
 
@@ -47,7 +57,9 @@ ypos = 0.2 * float(max(data))
 inputType = lines1[num_lines-NUMBER_OF_FIELDS]
 
 plot(t, data)
-plot(t, lines2)
+
+if (skip == 0):
+    plot(t, lines2)
 
 fig = gcf()
 fig.canvas.set_window_title('Filter test')

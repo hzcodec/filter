@@ -51,22 +51,22 @@ void read_indata(int sel)
     if(sel == 1)
     {
 	printf("ramp_samples opened\n");
-        fp = fopen("ramp_samples.txt", "r");
+        fp = fopen("logfiles/ramp_samples.txt", "r");
     }
     else if(sel == 2)
     {
 	printf("counter_samples opened\n");
-        fp = fopen("counter_samples.txt", "r");
+        fp = fopen("logfiles/counter_samples.txt", "r");
     }
     else if(sel == 3)
     {
 	printf("power2_samples opened\n");
-        fp = fopen("power2_samples.txt", "r");
+        fp = fopen("logfiles/power2_samples.txt", "r");
     }
     else
     {
 	printf("filter opened\n");
-        fp = fopen("filter.txt", "r");
+        fp = fopen("logfiles/filter.txt", "r");
     }
 
     if (fp == NULL)
