@@ -5,6 +5,7 @@ NUMBER_OF_FIELDS = 10
 ALPHA_POS = 8
 SAMPLING_TIME = 83.0 # us
 INPUT_TYPE = 'Ramp input signal'
+Y_POS = 9 # position of text
 
 font = {'family': 'monospace',
         'color':  'black',
@@ -32,12 +33,11 @@ plot(t, lines2)
 fig = gcf()
 fig.canvas.set_window_title('Filter test')
 
-plt.text(4000, 9, INPUT_TYPE, fontdict=font)
-
-#text(10, 13, 'Hello', fontdict=font)
+plt.text(0.3*num_lines, Y_POS, INPUT_TYPE, fontdict=font)
 
 xlabel('samples')
 ylabel('i')
+
 title(str(lines1[num_lines-ALPHA_POS])+',  Total time:'+str(totTime)+' ms')
 
 grid(True)
