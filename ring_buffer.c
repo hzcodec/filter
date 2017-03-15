@@ -114,12 +114,12 @@ void rb_peek(RingBuffer* rb, int windowSize)
     start = rb->data_start;
     end = rb->data_end;
 
-    printf("data_end:%.4f, last:%.4f\n", *rb->data_end, *rb->last);
+    //printf("data_end:%.4f, last:%.4f\n", *rb->data_end, *rb->last);
 
     // calculate slope collected in the window
     // HzS -  testing to skip divisor float slope = (*rb->last - *rb->data_end) / (float)windowSize;
     float slope = (*rb->last - *rb->data_end);
-    printf("  --> slope:%.4f <--\n", slope);
+    //printf("  --> slope:%.4f <--\n", slope);
     fprintf(fp, "%.4f\n", slope);
 
     for (int i=0; i<windowSize; i++)

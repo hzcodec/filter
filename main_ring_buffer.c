@@ -47,8 +47,9 @@ void print_usage()
 }
 
 
-void read_indata(int sel)
+int read_indata(int sel)
 {
+    // select input data file
     if(sel == 1)
     {
 	printf("ramp_samples opened\n");
@@ -76,12 +77,14 @@ void read_indata(int sel)
         exit(-1);
     }
 
+    // read header
     for (int i=0; i<NUMBER_OF_FIELDS; i++)
     {
         fgets(fileText, 30, fp);
         printf("%s", fileText);
     }
 
+    // read in data
     int idx = 0;
     while(fgets(fileText, 10, fp) != NULL)
     {
@@ -89,9 +92,11 @@ void read_indata(int sel)
 	ramp_indata[idx] = atof(fileText);
 	idx++;
     }
-    printf("%d indata read\n", idx);
+    printf("*** %d numbers of indata read ***\n\n", idx);
 
     fclose(fp);
+    
+    return idx;
 }
 
 
@@ -121,7 +126,7 @@ int main(int argc, char *argv[])
     printf("*****************************************************************\n");
     
     // read input data to ring buffer
-    read_indata(selectFile);
+    int numberOfReadData = read_indata(selectFile);
 
     // setup ring buffer
     rb_init(&myBuff, windowSize);
@@ -130,7 +135,7 @@ int main(int argc, char *argv[])
     init_fill(&myBuff, windowSize);
     rb_peek(&myBuff, windowSize);
 
-    for (int i=0; i<20-windowSize; i++)
+    for (int i=0; i<numberOfReadData-windowSize; i++)
     {
         rb_push(&myBuff, ramp_indata[i+windowSize]);
         rb_peek(&myBuff, windowSize);
