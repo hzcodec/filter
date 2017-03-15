@@ -126,7 +126,7 @@ void rb_peek(RingBuffer* rb, int windowSize)
     {
         data = *start;
 	average_data = average_data + data;
-        printf("%s() - start:%p, end: %p, data:%.2f, cnt:%d, [%d]\n", __func__, start, end, data, loopCounter, dataCounter);
+        printf("%s() - start:%p, end: %p, data:%.4f, cnt:%d, [%d]\n", __func__, start, end, data, loopCounter, dataCounter);
         start++;
 
         if (start == rb->buffer_end)
@@ -140,7 +140,7 @@ void rb_peek(RingBuffer* rb, int windowSize)
 
     loopCounter++;
 
-    printf("%s() - average_data:%.2f\n", __func__, average_data/(float)windowSize);
+    printf("%s() - average_data:%.4f\n", __func__, average_data/(float)windowSize);
     printf("\n");
 }
 
