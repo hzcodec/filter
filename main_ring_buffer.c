@@ -14,7 +14,7 @@
 #include "ring_buffer.h"
 
 #define LOCAL_BUFFER_SIZE 10 
-#define RAMP_DATA_BUFFER 4096
+#define RAMP_DATA_BUFFER 8192
 
 static int indata[16] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
 static int outdata[16] = {1,4,9,16,25,36,49,64,81,100,121,144,169,196,225,256};
@@ -119,7 +119,7 @@ int main(int argc, char *argv[])
     init_fill(&myBuff, windowSize);
     rb_peek(&myBuff, windowSize);
 
-    for (int i=0; i<3995; i++)
+    for (int i=0; i<2000-windowSize; i++)
     {
         rb_push(&myBuff, ramp_indata[i+windowSize]);
         rb_peek(&myBuff, windowSize);

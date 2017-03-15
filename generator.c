@@ -66,7 +66,7 @@ float* ramp_array(Generator *gen)
 	float yVal;
 	float noise = 0.0;
 	float part;
-	float minValue = 3;
+	float minValue = 1;
 	int   rampStartValue = 0.1 * gen->noSamples; // start condition 10% of max samples
 	int   idx1;
 
