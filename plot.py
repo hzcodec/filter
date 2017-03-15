@@ -3,7 +3,7 @@ import sys
 from pylab import *
 
 NUMBER_OF_FIELDS = 11
-ALPHA_POS = 8
+ALPHA_POS = 3
 SAMPLING_TIME = 83.0 # us
 
 font = {'family': 'monospace',
@@ -51,13 +51,13 @@ t = arange(0, num_lines-NUMBER_OF_FIELDS, 1)
 totTime = (num_lines-NUMBER_OF_FIELDS) * SAMPLING_TIME / 1000.0
 
 # just make a copy of the list except the header info
-data = lines1[0:num_lines-NUMBER_OF_FIELDS]
+data = lines1[11:num_lines]
 
 # find max y value, used to place text
 ypos = 0.2 * float(max(data))
 
 # get input type string
-inputType = lines1[num_lines-NUMBER_OF_FIELDS]
+inputType = lines1[0]
 
 plot(t, data, marker='o', linestyle='-.', color='b')
 
@@ -72,7 +72,7 @@ plt.text(0.3*num_lines, ypos, inputType, fontdict=font)
 xlabel('samples')
 ylabel('i')
 
-title(str(lines1[num_lines-ALPHA_POS])+',  Total time:'+str(totTime)+' ms')
+title(str(lines1[ALPHA_POS])+',  Total time:'+str(totTime)+' ms')
 
 grid(True)
 show()

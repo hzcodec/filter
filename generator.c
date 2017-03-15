@@ -73,6 +73,8 @@ float* ramp_array(Generator *gen)
         float *ar = (float *)malloc(sizeof(float) * gen->noSamples);    
         fp = fopen("logfiles/ramp_samples.txt", "w");
 
+	print_header(fp, gen, "Ramp");
+
         for (int i=0; i<rampStartValue; i++)
 	{
 	    if (gen->enableNoise == true)
@@ -124,8 +126,6 @@ float* ramp_array(Generator *gen)
 	    ar[i] = gen->amplitude + noise;
 	}
 
-	print_header(fp, gen, "Ramp");
-
 	fclose(fp);
 
 	return ar;
@@ -138,6 +138,8 @@ float* sinus_array(Generator *gen)
 	float noise = 0.0;
 
         fp = fopen("logfiles/sinus_samples.txt", "w");
+
+	print_header(fp, gen, "Sinus");
         
         float deg = 0.0;
         float rad = 0.0;
@@ -162,8 +164,6 @@ float* sinus_array(Generator *gen)
                 ar[i] = rad;
         }
 
-	print_header(fp, gen, "Sinus");
-
 	fclose(fp);
 
         return ar;
@@ -176,6 +176,8 @@ float* counter_array(Generator *gen)
 	float counter = 1.0;
 
         fp = fopen("logfiles/counter_samples.txt", "w");
+	print_header(fp, gen, "Counter");
+
         
         float *ar = (float *)malloc(sizeof(float) * gen->noSamples);    
 
@@ -184,8 +186,6 @@ float* counter_array(Generator *gen)
             fprintf(fp, "%.4f\n", counter++);
             ar[i] = counter;
         }
-
-	print_header(fp, gen, "Counter");
 
 	fclose(fp);
 
@@ -200,6 +200,9 @@ float* square_array(Generator *gen)
 	float out = 0.0;
 
         fp = fopen("logfiles/square_samples.txt", "w");
+
+	print_header(fp, gen, "Square");
+
         float *ar = (float *)malloc(sizeof(float) * (float)gen->noSamples);    
 	float dist = (float)gen->ratio/100.0 * (float)gen->noSamples;
 	float start = (float)gen->noSamples/2.0 - dist/2.0;
@@ -238,8 +241,6 @@ float* square_array(Generator *gen)
             fprintf(fp, "%.4f\n", (out + noise) * gen->amplitude);
 	}
 
-	print_header(fp, gen, "Square");
-
 	fclose(fp);
         return ar;
 }
@@ -251,6 +252,8 @@ float* power_of_2(Generator *gen)
 	float counter = 1.0;
 
         fp = fopen("logfiles/power2_samples.txt", "w");
+
+	print_header(fp, gen, "Power of 2");
         
         float *ar = (float *)malloc(sizeof(float) * gen->noSamples);    
 
@@ -259,8 +262,6 @@ float* power_of_2(Generator *gen)
             fprintf(fp, "%.4f\n", (float)(i*i));
             ar[i] = counter;
         }
-
-	print_header(fp, gen, "Power of 2");
 
 	fclose(fp);
 
