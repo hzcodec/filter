@@ -14,8 +14,12 @@ font = {'family': 'monospace',
 
 data = []
 
-sel = sys.argv[1]
-print sel
+
+try:
+    sel = sys.argv[1]
+except IndexError:
+    print 'Error! ./plot [1|2]'
+    sys.exit()
 
 if (sel == '1'):
     lines1 = [line.rstrip('\n') for line in open('logfiles/square_samples.txt')]
@@ -24,6 +28,7 @@ if (sel == '1'):
 elif (sel == '2'):
     lines1 = [line.rstrip('\n') for line in open('logfiles/ramp_samples.txt')]
     num_lines = sum(1 for line in open('logfiles/ramp_samples.txt'))
+
 
 lines2 = [line.rstrip('\n') for line in open('logfiles/filter.txt')]
 
