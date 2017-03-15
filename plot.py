@@ -4,11 +4,18 @@ from pylab import *
 NUMBER_OF_FIELDS = 10
 ALPHA_POS = 8
 SAMPLING_TIME = 83.0 # us
+INPUT_TYPE = 'Ramp input signal'
+
+font = {'family': 'monospace',
+        'color':  'black',
+        'weight': 'bold',
+        'size': 12,
+        }
 
 data = []
 
-lines1 = [line.rstrip('\n') for line in open('logfiles/square_samples.txt')]
-num_lines = sum(1 for line in open('logfiles/square_samples.txt'))
+lines1 = [line.rstrip('\n') for line in open('logfiles/ramp_samples.txt')]
+num_lines = sum(1 for line in open('logfiles/ramp_samples.txt'))
 lines2 = [line.rstrip('\n') for line in open('logfiles/filter.txt')]
 
 t = arange(0, num_lines-NUMBER_OF_FIELDS, 1)
@@ -24,6 +31,10 @@ plot(t, lines2)
 
 fig = gcf()
 fig.canvas.set_window_title('Filter test')
+
+plt.text(4000, 9, INPUT_TYPE, fontdict=font)
+
+#text(10, 13, 'Hello', fontdict=font)
 
 xlabel('samples')
 ylabel('i')
