@@ -19,33 +19,41 @@ skip = 0
 try:
     sel = sys.argv[1]
 except IndexError:
-    print 'Error! ./plot [1|2]'
+    print 'Error! You must enter a parameter ./plot [1-5]'
     sys.exit()
 
+
 if (sel == '1'):
+    print 'Sinus samples read\n'
+    lines1 = [line.rstrip('\n') for line in open('logfiles/sinus_samples.txt')]
+    num_lines = sum(1 for line in open('logfiles/sinus_samples.txt'))
+
+elif (sel == '2'):
     print 'Square samples read\n'
     lines1 = [line.rstrip('\n') for line in open('logfiles/square_samples.txt')]
     num_lines = sum(1 for line in open('logfiles/square_samples.txt'))
 
-elif (sel == '2'):
+elif (sel == '3'):
     print 'Ramp samples read\n'
     lines1 = [line.rstrip('\n') for line in open('logfiles/ramp_samples.txt')]
     num_lines = sum(1 for line in open('logfiles/ramp_samples.txt'))
 
-elif (sel == '3'):
+elif (sel == '4'):
     print 'Slope samples read\n'
     lines1 = [line.rstrip('\n') for line in open('logfiles/slope.txt')]
     num_lines = sum(1 for line in open('logfiles/slope.txt'))
 
-
-#try:
-#    lines2 = [line.rstrip('\n') for line in open('logfiles/filter.txt')]
-#except IOError:
-#    print 'filter.txt not read'
-#    skip = 1
+elif (sel == '5'):
+    print 'Filter read\n'
+    lines1 = [line.rstrip('\n') for line in open('logfiles/filter.txt')]
+    num_lines = sum(1 for line in open('logfiles/filter.txt'))
 
 
-t = arange(0, num_lines-NUMBER_OF_FIELDS, 1)
+try:
+    t = arange(0, num_lines-NUMBER_OF_FIELDS, 1)
+except NameError:
+    print 'Error! Incorrect choise, only between 1-5'
+    sys.exit()
 
 # calculate total time and convert to ms
 totTime = (num_lines-NUMBER_OF_FIELDS) * SAMPLING_TIME / 1000.0
@@ -54,12 +62,13 @@ totTime = (num_lines-NUMBER_OF_FIELDS) * SAMPLING_TIME / 1000.0
 data = lines1[11:num_lines]
 
 # find max y value, used to place text
-ypos = 0.2 * float(max(data))
+ypos = 0.3 * float(max(data))
 
 # get input type string
 inputType = lines1[0]
 
-plot(t, data, marker='o', linestyle='-.', color='b')
+#plot(t, data, marker='o', linestyle='-.', color='b')
+plot(t, data)
 
 #if (skip == 0):
 #    plot(t, lines2)
