@@ -94,9 +94,6 @@ inputType = lines1[0]
 #plot(t, data, marker='o', linestyle='-.', color='b')
 plot(t, data)
 
-#if (skip == 0):
-#    plot(t, lines2)
-
 fig = gcf()
 fig.canvas.set_window_title('Filter test')
 

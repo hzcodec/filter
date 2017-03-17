@@ -268,7 +268,16 @@ float* power_of_2(Generator *gen)
 
         for (int i=0; i<gen->noSamples; i++)
         {
-            fprintf(fp, "%.4f\n", (float)(i*i));
+	        if (gen->enableNoise == true)
+		{
+                        noise = rand_interval(gen->minNoise, gen->maxNoise);
+			if (swap == true)
+			{
+			        noise = noise * (-1.0);
+			}
+			swap = !swap;
+		}
+            fprintf(fp, "%.4f\n", (float)(i*i) + noise);
             ar[i] = counter;
         }
 
