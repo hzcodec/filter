@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdbool.h>
+#include <string.h>
 #include "generator.h"
 
 static bool swap = false;  // swap noise offset
@@ -73,7 +74,15 @@ float* ramp_array(Generator *gen)
         float *ar = (float *)malloc(sizeof(float) * gen->noSamples);    
         fp = fopen("logfiles/ramp_samples.txt", "w");
 
-	print_header(fp, gen, "Ramp");
+	char *str = "Ramp ";
+	char c = gen->slope + '0';
+	size_t len = strlen(str);
+        char *str2 = malloc(len + 1 + 1 ); /* one for extra char, one for trailing zero */
+        strcpy(str2, str);
+        str2[len] = c;
+        str2[len + 1] = '\0';
+
+	print_header(fp, gen, str2);
 
         for (int i=0; i<rampStartValue; i++)
 	{

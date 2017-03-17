@@ -20,6 +20,12 @@ try:
     sel = sys.argv[1]
 except IndexError:
     print 'Error! You must enter a parameter ./plot [1-6]'
+    print '[1] Sinus samples read'
+    print '[2] Square samples read'
+    print '[3] Ramp samples read'
+    print '[4] Slope samples read'
+    print '[5] Filter read'
+    print '[6] Counter read'
     sys.exit()
 
 
@@ -49,7 +55,7 @@ elif (sel == '5'):
     num_lines = sum(1 for line in open('logfiles/filter.txt'))
 
 elif (sel == '6'):
-    print 'Filter read\n'
+    print 'Counter read\n'
     lines1 = [line.rstrip('\n') for line in open('logfiles/counter_samples.txt')]
     num_lines = sum(1 for line in open('logfiles/counter_samples.txt'))
 
@@ -58,6 +64,12 @@ try:
     t = arange(0, num_lines-NUMBER_OF_FIELDS, 1)
 except NameError:
     print 'Error! Incorrect choise, only between 1-6'
+    print '[1] Sinus samples read'
+    print '[2] Square samples read'
+    print '[3] Ramp samples read'
+    print '[4] Slope samples read'
+    print '[5] Filter read'
+    print '[6] Counter read'
     sys.exit()
 
 # calculate total time and convert to ms
