@@ -19,7 +19,7 @@ skip = 0
 try:
     sel = sys.argv[1]
 except IndexError:
-    print 'Error! You must enter a parameter ./plot [1-5]'
+    print 'Error! You must enter a parameter ./plot [1-6]'
     sys.exit()
 
 
@@ -48,11 +48,16 @@ elif (sel == '5'):
     lines1 = [line.rstrip('\n') for line in open('logfiles/filter.txt')]
     num_lines = sum(1 for line in open('logfiles/filter.txt'))
 
+elif (sel == '6'):
+    print 'Filter read\n'
+    lines1 = [line.rstrip('\n') for line in open('logfiles/counter_samples.txt')]
+    num_lines = sum(1 for line in open('logfiles/counter_samples.txt'))
+
 
 try:
     t = arange(0, num_lines-NUMBER_OF_FIELDS, 1)
 except NameError:
-    print 'Error! Incorrect choise, only between 1-5'
+    print 'Error! Incorrect choise, only between 1-6'
     sys.exit()
 
 # calculate total time and convert to ms
