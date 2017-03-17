@@ -26,6 +26,7 @@ except IndexError:
     print '[4] Slope samples read'
     print '[5] Filter read'
     print '[6] Counter read'
+    print '[7] Power of 2 read'
     sys.exit()
 
 
@@ -59,6 +60,11 @@ elif (sel == '6'):
     lines1 = [line.rstrip('\n') for line in open('logfiles/counter_samples.txt')]
     num_lines = sum(1 for line in open('logfiles/counter_samples.txt'))
 
+elif (sel == '7'):
+    print 'Power of 2 read\n'
+    lines1 = [line.rstrip('\n') for line in open('logfiles/power2_samples.txt')]
+    num_lines = sum(1 for line in open('logfiles/power2_samples.txt'))
+
 
 try:
     t = arange(0, num_lines-NUMBER_OF_FIELDS, 1)
@@ -70,6 +76,7 @@ except NameError:
     print '[4] Slope samples read'
     print '[5] Filter read'
     print '[6] Counter read'
+    print '[7] Power of 2 read'
     sys.exit()
 
 # calculate total time and convert to ms
