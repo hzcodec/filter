@@ -24,7 +24,7 @@ for (dirpath, dirnames, filenames) in os.walk('logfiles'):
 
 print '-'*25
 print 'Current logfiles:'
-for i in range(1,len(filenames)):
+for i in range(0,len(filenames)):
     print ' ', filenames[i]
 print ' '
 
@@ -40,6 +40,9 @@ print ' '
 
 select = input("Select file to be read: ")
 print 'select ->', select
+if (select > 7):
+    print 'Invalid selection'
+    sys.exit()
 
 if (select == 1):
     print 'Sinus samples read\n'
